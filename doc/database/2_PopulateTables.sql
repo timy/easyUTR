@@ -85,4 +85,33 @@ VALUES (8, 'Coca-Cola Amatil', 'Supplier of soft drinks and other beverage produ
 
 /****** Items ******/
 
+INSERT INTO Items (itemName, itemDescription, itemImage, categoryID, supplierID)
+VALUES ('91#unleaded', 'Regular unleaded petrol', 'https://www.bp.com/content/dam/bp/country-sites/en_au/australia/home/products-services/fuels/bp-regular-fuel-image.jpg.img.1920.medium.jpg', 2, 1);
+
+INSERT INTO Items (itemName, itemDescription, itemImage, categoryID, supplierID)
+VALUES ('95#unleaded', 'Premium unleaded petrol', 'https://www.bp.com/content/dam/bp/country-sites/en_au/australia/home/products-services/fuels/bp-unleaded-95.jpg.img.2350.medium.jpg', 3, 2);
+
+INSERT INTO Items (itemName, itemDescription, itemImage, categoryID, supplierID)
+VALUES ('0#', 'Diesel fuel', 'https://www.bp.com/content/dam/bp/country-sites/en_au/australia/home/products-services/fuels/bp-diesel-promo-box.jpg.img.2350.medium.jpg', 4, 3);
+
+INSERT INTO Items (itemName, itemDescription, itemImage, categoryID, supplierID)
+VALUES ('Coffee', 'Freshly brewed coffee', 'https://media-cldnry.s-nbcnews.com/image/upload/newscms/2019_33/2203981/171026-better-coffee-boost-se-329p.jpg', 6, 4);
+
+INSERT INTO Items (itemName, itemDescription, itemImage, categoryID, supplierID)
+VALUES ('Sandwich', 'Fresh sandwich with various fillings', 'https://www.watermelon.org/wp-content/uploads/2023/02/Sandwich_2023.jpg', 5, 5);
+
+INSERT INTO Items (itemName, itemDescription, itemImage, categoryID, supplierID)
+VALUES ('Donut', 'Freshly baked donut', 'https://hips.hearstapps.com/hmg-prod/images/glazed-donut-recipe-1-65008ab2b45fb.jpg?crop=0.566xw:1.00xh;0.269xw,0&resize=1200:*', 8, 6);
+
+INSERT INTO Items (itemName, itemDescription, itemImage, categoryID, supplierID)
+VALUES ('Croissant', 'Buttery and flaky croissant', 'https://everydaypie.com/wp-content/uploads/2023/05/Homemade-Croissants-119.jpg', 8, 6);
+
+INSERT INTO Items (itemName, itemDescription, itemImage, categoryID, supplierID)
+VALUES ('Muffin', 'Chocolate chip muffin', 'https://thefirstyearblog.com/wp-content/uploads/2020/05/Chocolate-Chip-Muffins-2023-Square.png', 8, 6);
+
+INSERT INTO Items (itemName, itemDescription, itemImage, categoryID, supplierID)
+VALUES ('Juice', 'Fresh orange juice', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Orangejuice.jpg/1200px-Orangejuice.jpg', 7, 7);
+
+INSERT INTO Items (itemName, itemDescription, itemImage, categoryID, supplierID)
+VALUES ('Soft Drink', 'Cold soft drink', 'https://t3.ftcdn.net/jpg/03/69/56/02/360_F_369560255_ze7zKUVKic1yQKzmXOSym2shcEyGqKPg.jpg', 7, 8);
 
