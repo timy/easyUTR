@@ -295,3 +295,34 @@ VALUES ('Ethan', 'Kelly', 20, 1, 1),
        ('Lincoln', 'Ross', 20, 1, 2),
        ('Harper', 'Henderson', 20, 2, 3);
 
+/****** CustomerOrders ******/
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 08:30:00', '2024-09-01 08:35:00', 1, 11);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 09:15:00', '2024-09-01 09:20:00', 2, 12);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 10:45:00', '2024-09-01 10:50:00', 3, 13);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 12:00:00', '2024-09-01 12:05:00', 4, 14);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 14:30:00', '2024-09-01 14:35:00', 5, 15);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 15:15:00', '2024-09-01 15:20:00', 6, 16);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 16:45:00', '2024-09-01 16:50:00', 7, 17);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 17:30:00', '2024-09-01 17:35:00', 8, 18);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 18:00:00', '2024-09-01 18:05:00', 9, 19);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 19:30:00', '2024-09-01 19:35:00', 10, 20);
+
