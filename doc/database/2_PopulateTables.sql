@@ -192,3 +192,106 @@ VALUES ('UTR South Rd', 'Convenience store and petrol station in Mile End.', 'ht
 
 INSERT INTO Stores (storeName, storeDescription, storeImage, addressID)
 VALUES ('UTR Payneham Rd', 'Convenience store and petrol station in Stepney.', 'https://img.freepik.com/premium-photo/gas-station-cars-oil-gas-industry-petrol-station_75563-29918.jpg', 10);
+
+/****** Staff ******/
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('John', 'Smith', 11, 1, 1),
+       ('Jane', 'Doe', 11, 2, 1),
+       ('Michael', 'Johnson', 11, 1, 2),
+       ('Emily', 'Davis', 11, 3, 2),
+       ('David', 'Wilson', 11, 2, 3),
+       ('Laura', 'Brown', 11, 3, 1),
+       ('Paul', 'White', 11, 1, 2),
+       ('Anna', 'Taylor', 11, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Mark', 'Anderson', 12, 1, 1),
+       ('Sophia', 'Lee', 12, 2, 1),
+       ('James', 'Miller', 12, 1, 2),
+       ('Emma', 'Clark', 12, 3, 2),
+       ('Robert', 'Lewis', 12, 2, 3),
+       ('Isabella', 'Walker', 12, 3, 1),
+       ('Thomas', 'Hall', 12, 1, 2),
+       ('Lucas', 'Allen', 12, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Henry', 'Moore', 13, 1, 1),
+       ('Olivia', 'Taylor', 13, 2, 1),
+       ('William', 'Harris', 13, 1, 2),
+       ('Sophia', 'Martin', 13, 3, 2),
+       ('Mason', 'Thompson', 13, 2, 3),
+       ('Emily', 'Garcia', 13, 3, 1),
+       ('Benjamin', 'Martinez', 13, 1, 2),
+       ('Mia', 'Robinson', 13, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Ethan', 'Clark', 14, 1, 1),
+       ('Charlotte', 'Rodriguez', 14, 2, 1),
+       ('Logan', 'Lewis', 14, 1, 2),
+       ('Amelia', 'Lee', 14, 3, 2),
+       ('Alexander', 'Walker', 14, 2, 3),
+       ('Avery', 'Hall', 14, 3, 1),
+       ('Daniel', 'Young', 14, 1, 2),
+       ('Chloe', 'Hernandez', 14, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Matthew', 'King', 15, 1, 1),
+       ('Ava', 'Scott', 15, 2, 1),
+       ('Jackson', 'Green', 15, 1, 2),
+       ('Harper', 'Adams', 15, 3, 2),
+       ('Jack', 'Baker', 15, 2, 3),
+       ('Lily', 'Nelson', 15, 3, 1),
+       ('James', 'Carter', 15, 1, 2),
+       ('Ella', 'Mitchell', 15, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Samuel', 'Perez', 16, 1, 1),
+       ('Zoe', 'Roberts', 16, 2, 1),
+       ('David', 'Turner', 16, 1, 2),
+       ('Nora', 'Phillips', 16, 3, 2),
+       ('Sebastian', 'Campbell', 16, 2, 3),
+       ('Mila', 'Parker', 16, 3, 1),
+       ('Joseph', 'Evans', 16, 1, 2),
+       ('Grace', 'Edwards', 16, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Luke', 'Collins', 17, 1, 1),
+       ('Scarlett', 'Stewart', 17, 2, 1),
+       ('Joshua', 'Sanchez', 17, 1, 2),
+       ('Penelope', 'Morris', 17, 3, 2),
+       ('Gabriel', 'Rogers', 17, 2, 3),
+       ('Victoria', 'Reed', 17, 3, 1),
+       ('Owen', 'Cook', 17, 1, 2),
+       ('Eleanor', 'Morgan', 17, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Andrew', 'Bell', 18, 1, 1),
+       ('Lucy', 'Murphy', 18, 2, 1),
+       ('Carter', 'Bailey', 18, 1, 2),
+       ('Nina', 'Rivera', 18, 3, 2),
+       ('Eli', 'Cooper', 18, 2, 3),
+       ('Hazel', 'Richardson', 18, 3, 1),
+       ('Wyatt', 'Cox', 18, 1, 2),
+       ('Aria', 'Howard', 18, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Asher', 'Ward', 19, 1, 1),
+       ('Madison', 'Torres', 19, 2, 1),
+       ('Levi', 'Peterson', 19, 1, 2),
+       ('Aubrey', 'Gray', 19, 3, 2),
+       ('Jackson', 'Ramirez', 19, 2, 3),
+       ('Brooklyn', 'James', 19, 3, 1),
+       ('Mason', 'Watson', 19, 1, 2),
+       ('Scarlett', 'Brooks', 19, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Ethan', 'Kelly', 20, 1, 1),
+       ('Hannah', 'Sanders', 20, 2, 1),
+       ('Jacob', 'Price', 20, 1, 2),
+       ('Addison', 'Bennett', 20, 3, 2),
+       ('Grayson', 'Wood', 20, 2, 3),
+       ('Mackenzie', 'Barnes', 20, 3, 1),
+       ('Lincoln', 'Ross', 20, 1, 2),
+       ('Harper', 'Henderson', 20, 2, 3);
+
