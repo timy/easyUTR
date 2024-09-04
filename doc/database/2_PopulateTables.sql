@@ -1,4 +1,5 @@
 /****** Customers ******/
+
 INSERT INTO Customers (customerID, firstName, lastName, email, phoneNumber)
 VALUES (1, 'James', 'Brown', 'james.brown@gmail.com', '0412345678');
 
@@ -31,6 +32,7 @@ VALUES (10, 'Lucas', 'Lee', 'lucas.lee@gmail.com', '0478901234');
 
 
 /****** ItemCategories ******/
+
 INSERT INTO ItemCategories (categoryID, parentCategoryID, categoryName)
 VALUES (1, NULL, 'Fuel');
 
@@ -55,6 +57,32 @@ VALUES (7, 5, 'Juices');
 INSERT INTO ItemCategories (categoryID, parentCategoryID, categoryName)
 VALUES (8, 5, 'Bakery');
 
+/****** Suppliers ******/
 
+INSERT INTO Suppliers (supplierID, supplierName, supplierDescription, supplierURL)
+VALUES (1, 'Viva Energy Australia', 'Major fuel supplier in South Australia, providing fuel and petroleum products.', 'https://www.vivaenergy.com.au');
+
+INSERT INTO Suppliers (supplierID, supplierName, supplierDescription, supplierURL)
+VALUES (2, 'BP Australia', 'One of the largest fuel and energy suppliers in Australia, with stations across South Australia.', 'https://www.bp.com/en_au/australia.html');
+
+INSERT INTO Suppliers (supplierID, supplierName, supplierDescription, supplierURL)
+VALUES (3, 'Caltex Australia', 'Provider of fuel and petroleum products across Australia.', 'https://www.caltex.com.au');
+
+INSERT INTO Suppliers (supplierID, supplierName, supplierDescription, supplierURL)
+VALUES (4, 'Grinders Coffee', 'Supplier of freshly brewed coffee and espresso beverages.', 'https://www.grinderscoffee.com.au');
+
+INSERT INTO Suppliers (supplierID, supplierName, supplierDescription, supplierURL)
+VALUES (5, 'Coles Supermarkets', 'Australian supermarket chain supplying a wide variety of fresh and packaged foods.', 'https://www.coles.com.au');
+
+INSERT INTO Suppliers (supplierID, supplierName, supplierDescription, supplierURL)
+VALUES (6, 'Woolworths Supermarkets', 'Leading supermarket chain in Australia providing food and household items.', 'https://www.woolworths.com.au');
+
+INSERT INTO Suppliers (supplierID, supplierName, supplierDescription, supplierURL)
+VALUES (7, 'Berri Juice', 'Supplier of fresh fruit juices, including orange juice.', 'https://www.berrijuice.com.au');
+
+INSERT INTO Suppliers (supplierID, supplierName, supplierDescription, supplierURL)
+VALUES (8, 'Coca-Cola Amatil', 'Supplier of soft drinks and other beverage products in Australia.', 'https://www.ccamatil.com');
+
+/****** Items ******/
 
 
