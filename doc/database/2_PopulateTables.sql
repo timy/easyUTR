@@ -358,3 +358,21 @@ VALUES (9, 9, 1, 4.00);
 INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
 VALUES (10, 10, 2, 5.00);
 
+/****** ItemsInStore ******/
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (11, 1, 1.55, 500);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (12, 2, 1.75, 400);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (13, 3, 1.60, 300);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (14, 4, 3.50, 100);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (15, 5, 5.00, 150);  
+
+
