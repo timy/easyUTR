@@ -326,3 +326,35 @@ VALUES ('2024-09-01 18:00:00', '2024-09-01 18:05:00', 9, 19);
 INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
 VALUES ('2024-09-01 19:30:00', '2024-09-01 19:35:00', 10, 20);
 
+
+/****** ItemsInOrder ******/
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (1, 1, 20, 31.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (2, 2, 30, 52.50);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (3, 3, 25, 40.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (4, 4, 2, 7.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (5, 5, 1, 5.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (6, 6, 4, 8.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (7, 7, 3, 9.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (8, 8, 2, 5.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (9, 9, 1, 4.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (10, 10, 2, 5.00);
+
