@@ -115,3 +115,35 @@ VALUES ('Juice', 'Fresh orange juice', 'https://upload.wikimedia.org/wikipedia/c
 INSERT INTO Items (itemName, itemDescription, itemImage, categoryID, supplierID)
 VALUES ('Soft Drink', 'Cold soft drink', 'https://t3.ftcdn.net/jpg/03/69/56/02/360_F_369560255_ze7zKUVKic1yQKzmXOSym2shcEyGqKPg.jpg', 7, 8);
 
+/****** Addresses ******/
+
+INSERT INTO Addresses (addressLine, suburb, postcode, region, latitude, longitude)
+VALUES ('58 West Terrace', 'Adelaide', '5000', 'SA', -34.9290, 138.5897);
+
+INSERT INTO Addresses (addressLine, suburb, postcode, region, latitude, longitude)
+VALUES ('120 Goodwood Rd', 'Wayville', '5034', 'SA', -34.9507, 138.5924);
+
+INSERT INTO Addresses (addressLine, suburb, postcode, region, latitude, longitude)
+VALUES ('235 North East Road', 'Hampstead Gardens', '5086', 'SA', -34.8673, 138.6218);
+
+INSERT INTO Addresses (addressLine, suburb, postcode, region, latitude, longitude)
+VALUES ('23 Main South Rd', 'Morphett Vale', '5162', 'SA', -35.1346, 138.5131);
+
+INSERT INTO Addresses (addressLine, suburb, postcode, region, latitude, longitude)
+VALUES ('170 Unley Rd', 'Unley', '5061', 'SA', -34.9488, 138.6063);
+
+INSERT INTO Addresses (addressLine, suburb, postcode, region, latitude, longitude)
+VALUES ('300 Magill Rd', 'Kensington Park', '5068', 'SA', -34.9276, 138.6485);
+
+INSERT INTO Addresses (addressLine, suburb, postcode, region, latitude, longitude)
+VALUES ('501 Portrush Rd', 'Glenunga', '5064', 'SA', -34.9484, 138.6306);
+
+INSERT INTO Addresses (addressLine, suburb, postcode, region, latitude, longitude)
+VALUES ('97 Henley Beach Rd', 'Mile End', '5031', 'SA', -34.9227, 138.5695);
+
+INSERT INTO Addresses (addressLine, suburb, postcode, region, latitude, longitude)
+VALUES ('301 South Rd', 'Mile End', '5031', 'SA', -34.9352, 138.5764);
+
+INSERT INTO Addresses (addressLine, suburb, postcode, region, latitude, longitude)
+VALUES ('88 Payneham Rd', 'Stepney', '5069', 'SA', -34.9147, 138.6219);
+
