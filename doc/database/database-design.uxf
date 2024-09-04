@@ -29,7 +29,7 @@ fontsize=10
     <id>UMLClass</id>
     <coordinates>
       <x>539</x>
-      <y>286</y>
+      <y>330</y>
       <w>154</w>
       <h>143</h>
     </coordinates>
@@ -47,7 +47,7 @@ bg=green</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>803</x>
-      <y>286</y>
+      <y>330</y>
       <w>154</w>
       <h>143</h>
     </coordinates>
@@ -64,7 +64,7 @@ bg=green</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>539</x>
-      <y>649</y>
+      <y>693</y>
       <w>154</w>
       <h>143</h>
     </coordinates>
@@ -81,7 +81,7 @@ bg=green</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>803</x>
-      <y>649</y>
+      <y>693</y>
       <w>154</w>
       <h>143</h>
     </coordinates>
@@ -100,7 +100,7 @@ bg=green</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>440</x>
-      <y>495</y>
+      <y>539</y>
       <w>121</w>
       <h>99</h>
     </coordinates>
@@ -116,7 +116,7 @@ bg=green</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>605</x>
-      <y>418</y>
+      <y>462</y>
       <w>88</w>
       <h>253</h>
     </coordinates>
@@ -130,7 +130,7 @@ contains ^</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>550</x>
-      <y>528</y>
+      <y>572</y>
       <w>88</w>
       <h>33</h>
     </coordinates>
@@ -141,7 +141,7 @@ contains ^</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>682</x>
-      <y>704</y>
+      <y>748</y>
       <w>143</w>
       <h>44</h>
     </coordinates>
@@ -155,7 +155,7 @@ madeBy &gt;</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>682</x>
-      <y>330</y>
+      <y>374</y>
       <w>143</w>
       <h>44</h>
     </coordinates>
@@ -169,7 +169,7 @@ isA &gt;</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>858</x>
-      <y>341</y>
+      <y>385</y>
       <w>176</w>
       <h>143</h>
     </coordinates>
@@ -181,7 +181,7 @@ isA &gt;</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>275</x>
-      <y>286</y>
+      <y>330</y>
       <w>132</w>
       <h>143</h>
     </coordinates>
@@ -199,7 +199,7 @@ bg=green</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>396</x>
-      <y>341</y>
+      <y>385</y>
       <w>165</w>
       <h>44</h>
     </coordinates>
@@ -213,7 +213,7 @@ has &gt;</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>418</x>
-      <y>209</y>
+      <y>253</y>
       <w>110</w>
       <h>99</h>
     </coordinates>
@@ -229,7 +229,7 @@ bg=green</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>462</x>
-      <y>297</y>
+      <y>341</y>
       <w>33</w>
       <h>88</h>
     </coordinates>
@@ -240,7 +240,7 @@ bg=green</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>55</x>
-      <y>286</y>
+      <y>330</y>
       <w>110</w>
       <h>143</h>
     </coordinates>
@@ -261,7 +261,7 @@ bg=green</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>154</x>
-      <y>341</y>
+      <y>385</y>
       <w>143</w>
       <h>44</h>
     </coordinates>
@@ -275,7 +275,7 @@ m2=0..*
     <id>Relation</id>
     <coordinates>
       <x>330</x>
-      <y>418</y>
+      <y>462</y>
       <w>231</w>
       <h>330</h>
     </coordinates>
@@ -289,7 +289,7 @@ madeAt ^</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>275</x>
-      <y>11</y>
+      <y>55</y>
       <w>132</w>
       <h>143</h>
     </coordinates>
@@ -306,9 +306,9 @@ bg=green</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>550</x>
-      <y>11</y>
+      <y>55</y>
       <w>132</w>
-      <h>143</h>
+      <h>88</h>
     </coordinates>
     <panel_attributes>_Jobs_
 --
@@ -322,7 +322,7 @@ bg=green</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>396</x>
-      <y>99</y>
+      <y>88</y>
       <w>176</w>
       <h>44</h>
     </coordinates>
@@ -336,7 +336,7 @@ bg=green</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>330</x>
-      <y>143</y>
+      <y>187</y>
       <w>99</w>
       <h>165</h>
     </coordinates>
@@ -345,5 +345,37 @@ m1=1
 m2=1..*
 belongsTo v</panel_attributes>
     <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>539</x>
+      <y>165</y>
+      <w>154</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>_Suppliers_
+--
+supplierID (PK)
+supplierName
+supplierDescription
+supplierURL
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>605</x>
+      <y>242</y>
+      <w>99</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..*
+suppliedBy ^</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
 </diagram>

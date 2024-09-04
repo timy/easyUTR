@@ -18,16 +18,28 @@ CREATE TABLE dbo.ItemCategories(
 	CONSTRAINT ItemCategory_PK PRIMARY KEY (categoryID ASC)
 );
 
+/****** Suppliers ******/
+CREATE TABLE dbo.Suppliers(
+	supplierID int NOT NULL,
+	supplierName varchar(100) NOT NULL,
+	supplierDescription varchar(max) NOT NULL,
+	supplierURL varchar(max),
+
+	CONSTRAINT Supplier_PK PRIMARY KEY (supplierID ASC)
+);
+
 /****** Items ******/
 CREATE TABLE dbo.Items(
 	itemID int IDENTITY(1, 1) NOT NULL,
 	itemName varchar(150) NOT NULL,
 	itemDescription varchar(max) NOT NULL,
 	itemImage varchar(max),
-	categoryID int,
+	categoryID int NOT NULL,
+	supplierID int NOT NULL,
 
 	CONSTRAINT Item_PK PRIMARY KEY (itemID ASC),
-	CONSTRAINT Item_ItemCategory_FK FOREIGN KEY(categoryID) REFERENCES dbo.ItemCategories (categoryID)
+	CONSTRAINT Item_ItemCategory_FK FOREIGN KEY(categoryID) REFERENCES dbo.ItemCategories (categoryID),
+	CONSTRAINT Item_Supplier_FK FOREIGN KEY(supplierID) REFERENCES dbo.Suppliers (supplierID)
 );
 
 /****** Addresses ******/
