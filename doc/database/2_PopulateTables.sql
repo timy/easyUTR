@@ -161,4 +161,34 @@ VALUES (3, 'Cashier');
 INSERT INTO Jobs (jobID, jobName)
 VALUES (4, 'Stock Manager');
 
+/****** Stores ******/
 
+INSERT INTO Stores (storeName, storeDescription, storeImage, addressID)
+VALUES ('UTR West Terrace', 'Convenience store and petrol station located in Adelaide city.', 'https://t3.ftcdn.net/jpg/05/42/17/70/360_F_542177036_v12rYhGPt06ZrbVyLHenryRtsHc6r2S5.jpg', 1);
+
+INSERT INTO Stores (storeName, storeDescription, storeImage, addressID)
+VALUES ('UTR Goodwood Rd', 'Convenience store and petrol station located in Wayville.', 'https://t3.ftcdn.net/jpg/06/23/26/90/360_F_623269044_OiBgP53WjYHgmldEGwv8AauCemtiaCqS.jpg', 2);
+
+INSERT INTO Stores (storeName, storeDescription, storeImage, addressID)
+VALUES ('UTR North East Rd', 'Convenience store and petrol station in Hampstead Gardens.', 'https://i.pinimg.com/1200x/34/05/8b/34058b59d45608c5bd639bbc811250c4.jpg', 3);
+
+INSERT INTO Stores (storeName, storeDescription, storeImage, addressID)
+VALUES ('UTR Main South Rd', 'Convenience store and petrol station located in Morphett Vale.', 'https://www.businessnews.com.lb/cms/Portals/2/Business/gasstationsout10092018.jpg', 4);
+
+INSERT INTO Stores (storeName, storeDescription, storeImage, addressID)
+VALUES ('UTR Unley Rd', 'Convenience store and petrol station in Unley.', 'https://s.yimg.com/ny/api/res/1.2/BlGpc4_BQdqGpRw_5CF5gQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTM2MA--/https://media.zenfs.com/en/gobankingrates_644/cbef0f16285e60ae94523066be9b97ed', 5);
+
+INSERT INTO Stores (storeName, storeDescription, storeImage, addressID)
+VALUES ('UTR Magill Rd', 'Convenience store and petrol station in Kensington Park.', 'https://img.freepik.com/premium-photo/gas-station-with-red-light-side_771426-7513.jpg', 6);
+
+INSERT INTO Stores (storeName, storeDescription, storeImage, addressID)
+VALUES ('UTR Portrush Rd', 'Convenience store and petrol station in Glenunga.', 'https://www.lbcgroup.tv/uploadImages/DocumentImages/News-P-679887-638078279555529942.jpg', 7);
+
+INSERT INTO Stores (storeName, storeDescription, storeImage, addressID)
+VALUES ('UTR Henley Beach Rd', 'Convenience store and petrol station in Mile End.', 'https://t4.ftcdn.net/jpg/06/63/74/75/360_F_663747502_2QPA0TIAJhSTwTPCQmvf37oLFyAEB60R.jpg', 8);
+
+INSERT INTO Stores (storeName, storeDescription, storeImage, addressID)
+VALUES ('UTR South Rd', 'Convenience store and petrol station in Mile End.', 'https://img.freepik.com/premium-photo/gas-station-with-clouds-blue-sky_908344-13524.jpg', 9);
+
+INSERT INTO Stores (storeName, storeDescription, storeImage, addressID)
+VALUES ('UTR Payneham Rd', 'Convenience store and petrol station in Stepney.', 'https://img.freepik.com/premium-photo/gas-station-cars-oil-gas-industry-petrol-station_75563-29918.jpg', 10);
