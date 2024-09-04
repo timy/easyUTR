@@ -147,3 +147,18 @@ VALUES ('301 South Rd', 'Mile End', '5031', 'SA', -34.9352, 138.5764);
 INSERT INTO Addresses (addressLine, suburb, postcode, region, latitude, longitude)
 VALUES ('88 Payneham Rd', 'Stepney', '5069', 'SA', -34.9147, 138.6219);
 
+/****** Jobs ******/
+
+INSERT INTO Jobs (jobID, jobName)
+VALUES (1, 'Store Admin');
+
+INSERT INTO Jobs (jobID, jobName)
+VALUES (2, 'Store Assistant');
+
+INSERT INTO Jobs (jobID, jobName)
+VALUES (3, 'Cashier');
+
+INSERT INTO Jobs (jobID, jobName)
+VALUES (4, 'Stock Manager');
+
+
