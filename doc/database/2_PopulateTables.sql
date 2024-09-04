@@ -29,3 +29,32 @@ VALUES (9, 'Mia', 'White', 'mia.white@gmail.com', '0467890123');
 INSERT INTO Customers (customerID, firstName, lastName, email, phoneNumber)
 VALUES (10, 'Lucas', 'Lee', 'lucas.lee@gmail.com', '0478901234');
 
+
+/****** ItemCategories ******/
+INSERT INTO ItemCategories (categoryID, parentCategoryID, categoryName)
+VALUES (1, NULL, 'Fuel');
+
+INSERT INTO ItemCategories (categoryID, parentCategoryID, categoryName)
+VALUES (2, 1, 'Regular Unleaded');
+
+INSERT INTO ItemCategories (categoryID, parentCategoryID, categoryName)
+VALUES (3, 1, 'Premium Unleaded');
+
+INSERT INTO ItemCategories (categoryID, parentCategoryID, categoryName)
+VALUES (4, 1, 'Diesel');
+
+INSERT INTO ItemCategories (categoryID, parentCategoryID, categoryName)
+VALUES (5, NULL, 'Food & Beverages');
+
+INSERT INTO ItemCategories (categoryID, parentCategoryID, categoryName)
+VALUES (6, 5, 'Coffee');
+
+INSERT INTO ItemCategories (categoryID, parentCategoryID, categoryName)
+VALUES (7, 5, 'Juices');
+
+INSERT INTO ItemCategories (categoryID, parentCategoryID, categoryName)
+VALUES (8, 5, 'Bakery');
+
+
+
+
