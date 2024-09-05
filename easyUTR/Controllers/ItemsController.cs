@@ -28,7 +28,8 @@ namespace easyUTR.Controllers
             var categories = _context.ItemCategories
                 .Where(i => !i.ParentCategoryId.HasValue)
                 .OrderBy(i => i.CategoryName)
-                .Select(i => new {
+                .Select(i => new
+                {
                     i.CategoryId,
                     i.CategoryName
                 })
@@ -81,7 +82,20 @@ namespace easyUTR.Controllers
                 return NotFound();
             }
 
-            return View(item);
+            //return View(item);
+            // Fetch related items from the same category
+            var relatedItems = await _context.Items
+                .Where(i => i.CategoryId == item.CategoryId && i.ItemId != item.ItemId)
+                .Take(3)  // Limit to 3 related items
+                .ToListAsync();
+
+            var viewModel = new ItemDetailViewModel
+            {
+                Item = item,
+                RelatedItems = relatedItems
+            };
+
+            return View(viewModel);
         }
 
         // GET: Items/Create

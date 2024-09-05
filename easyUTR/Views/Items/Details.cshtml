@@ -1,48 +1,85 @@
-﻿@model easyUTR.Models.Item
-
+﻿@model easyUTR.ViewModels.ItemDetailViewModel
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Item.ItemName;
 }
 
-<h1>Details</h1>
+<div class="container my-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Items")">Supermarket</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Item.ItemName</li>
+        </ol>
+    </nav>
 
-<div>
-    <h4>Item</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ItemName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ItemName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ItemDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ItemDescription)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ItemImage)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ItemImage)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.CategoryId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Supplier)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Supplier.SupplierId)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ItemId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Model.Item.ItemImage" alt="@Model.Item.ItemName" class="img-fluid rounded shadow-sm">
+        </div>
+        <div class="col-md-6">
+            <h1 class="mb-3">@Model.Item.ItemName</h1>
+            <p class="lead mb-4">@Model.Item.ItemDescription</p>
+            <div class="mb-3">
+                <span class="badge bg-primary">@Model.Item.Category.CategoryName</span>
+                <span class="badge bg-secondary">@Model.Item.Supplier.SupplierName</span>
+            </div>
+            <div class="mb-4">
+                <h2 class="text-primary">$9.99</h2> <!-- Placeholder price, replace with actual price when available -->
+            </div>
+            <button class="btn btn-primary btn-lg mb-3">Add to Cart</button>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model.Item.ItemId" class="btn btn-outline-secondary">Edit</a>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+                </div>
+                <div>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-half text-warning"></i>
+                    <span class="ms-2">(4.5)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-8">
+            <h3>Product Details</h3>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Category</th>
+                        <td>@Model.Item.Category.CategoryName</td>
+                    </tr>
+                    <tr>
+                        <th>Supplier</th>
+                        <td>@Model.Item.Supplier.SupplierName</td>
+                    </tr>
+                    <!-- Add more details as needed -->
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <h3>You might also like</h3>
+            @foreach (var relatedItem in Model.RelatedItems)
+            {
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="@relatedItem.ItemImage" alt="@relatedItem.ItemName" class="img-fluid rounded">
+                            </div>
+                            <div class="col-8">
+                                <h5 class="card-title">@relatedItem.ItemName</h5>
+                                <p class="card-text">@relatedItem.ItemDescription.Substring(0, Math.Min(relatedItem.ItemDescription.Length, 50))...</p>
+                                <a href="@Url.Action("Details", new { id = relatedItem.ItemId })" class="btn btn-sm btn-outline-primary">View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 </div>
