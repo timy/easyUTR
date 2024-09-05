@@ -1,76 +1,68 @@
 ﻿@model easyUTR.ViewModels.ItemSearchViewModel
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Supermarket";
 }
 
-<h1>Supermarket</h1>
+<div class="container my-5">
+    <h1 class="text-center mb-4" style="color: #4a90e2;">Supermarket Items</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-<form asp-controller="Items" asp-action="Index" method="post" class="row">
-    <div class="col-4">
-        <input asp-for="@Model.SearchText" class="form-control" placeholder="Search items..." title="Search for items by name" maxlength="100" />
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <form asp-controller="Items" asp-action="Index" method="post" class="row g-3">
+                <div class="col-md-5">
+                    <input asp-for="@Model.SearchText" class="form-control" placeholder="Search items..." title="Search for items by name" maxlength="100" />
+                </div>
+                <div class="col-md-4">
+                    <select asp-for="@Model.CategoryID" class="form-select" asp-items="@Model.CategoryList">
+                        <option value="">All Categories...</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="col-3">
-        <select asp-for="@Model.CategoryID" class="form-control" asp-items="@Model.CategoryList">
-            <option value="">All Categories...</option>
-        </select>
-    </div>
-    <div class="col-3">
-        <button type="submit" class="btn btn-outline-primary">Search</button>
-    </div>
-</form>
 
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in Model.ItemList)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm item-card" onclick="location.href='@Url.Action("Details", "Items", new { id = item.ItemId })'">
+                    <img src="@item.ItemImage" class="card-img-top" alt="@item.ItemName" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.ItemName</h5>
+                        <p class="card-text">@item.ItemDescription</p>
+                        <p class="card-text"><small class="text-muted">Category: @item.Category.CategoryName</small></p>
+                        <p class="card-text"><small class="text-muted">Supplier: @item.Supplier.SupplierName</small></p>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a asp-action="Edit" asp-route-id="@item.ItemId" class="btn btn-sm btn-outline-secondary" onclick="event.stopPropagation();">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.ItemId" class="btn btn-sm btn-outline-danger" onclick="event.stopPropagation();">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemList[0].ItemName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemList[0].ItemDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemList[0].ItemImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemList[0].Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemList[0].Supplier)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.ItemList) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemDescription)
-            </td>
-            <td>
-                <img src="@item.ItemImage" alt="@item.ItemName" 
-                width="300" height="200"></img>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ItemId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ItemId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="text-center mt-4">
+        <a asp-action="Create" class="btn btn-success">Create New Item</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var cards = document.querySelectorAll('.item-card');
+        cards.forEach(function (card) {
+            card.addEventListener('click', function (e) {
+                if (!e.target.closest('.btn-group')) {
+                    window.location = this.getAttribute('onclick').split("'")[1];
+                }
+            });
+        });
+    });
+</script>
