@@ -144,9 +144,11 @@ namespace easyUTR.Controllers
             }
 
             //return View(item);
-            // Fetch related items from the same category
+            // Fetch related items from the same parent category
             var relatedItems = await _context.Items
-                .Where(i => i.CategoryId == item.CategoryId && i.ItemId != item.ItemId)
+                .Include(i => i.Category)
+                .Where(i => i.Category.ParentCategoryId == item.Category.ParentCategoryId
+                            && i.ItemId != item.ItemId)
                 .Take(3)  // Limit to 3 related items
                 .ToListAsync();
 

@@ -63,22 +63,29 @@
         </div>
         <div class="col-md-4">
             <h3>You might also like</h3>
-            @foreach (var relatedItem in Model.RelatedItems)
+            @if (Model.RelatedItems.Any())
             {
-                <div class="card mb-2">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4">
-                                <img src="@relatedItem.ItemImage" alt="@relatedItem.ItemName" class="img-fluid rounded">
-                            </div>
-                            <div class="col-8">
-                                <h5 class="card-title">@relatedItem.ItemName</h5>
-                                <p class="card-text">@relatedItem.ItemDescription.Substring(0, Math.Min(relatedItem.ItemDescription.Length, 50))...</p>
-                                <a href="@Url.Action("Details", new { id = relatedItem.ItemId })" class="btn btn-sm btn-outline-primary">View</a>
+                foreach (var relatedItem in Model.RelatedItems)
+                {
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <img src="@relatedItem.ItemImage" alt="@relatedItem.ItemName" class="img-fluid rounded">
+                                </div>
+                                <div class="col-8">
+                                    <h5 class="card-title">@relatedItem.ItemName</h5>
+                                    <p class="card-text">@(relatedItem.ItemDescription?.Length > 50 ? relatedItem.ItemDescription.Substring(0, 47) + "..." : relatedItem.ItemDescription)</p>
+                                    <a href="@Url.Action("Details", new { id = relatedItem.ItemId })" class="btn btn-sm btn-outline-primary">View</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
+            }
+            else
+            {
+                <p>No related items found.</p>
             }
         </div>
     </div>
