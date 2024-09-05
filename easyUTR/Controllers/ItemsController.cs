@@ -22,11 +22,60 @@ namespace easyUTR.Controllers
         }
 
         // GET: Items
+        //public async Task<IActionResult> Index(ItemSearchViewModel vm)
+        //{
+        //    // Query categories
+        //    var categories = _context.ItemCategories
+        //        .Where(i => !i.ParentCategoryId.HasValue)
+        //        .OrderBy(i => i.CategoryName)
+        //        .Select(i => new
+        //        {
+        //            i.CategoryId,
+        //            i.CategoryName
+        //        })
+        //        .ToList();
+        //    vm.CategoryList = new SelectList(categories,
+        //        nameof(ItemCategory.CategoryId),
+        //        nameof(ItemCategory.CategoryName));
+
+        //    // Retrieve all items
+        //    var dbContext = _context.Items
+        //        .Include(i => i.Category)
+        //        .Include(i => i.Supplier)
+        //        .AsQueryable();
+
+        //    // Filter by category
+        //    if (vm.CategoryID != null)
+        //    {
+        //        dbContext = dbContext
+        //            .Where(i => i.Category.ParentCategoryId == vm.CategoryID || i.CategoryId == vm.CategoryID);
+        //    }
+
+        //    // Filter by item name
+        //    if (!string.IsNullOrWhiteSpace(vm.SearchText))
+        //    {
+        //        dbContext = dbContext.Where(i => i.ItemName.Contains(vm.SearchText));
+        //    }
+
+        //    // Sort by item name
+        //    dbContext = dbContext.OrderBy(i => i.ItemName);
+
+        //    vm.ItemList = await dbContext.ToListAsync();
+
+        //    return View(vm);
+        //}
+
+
         public async Task<IActionResult> Index(ItemSearchViewModel vm)
         {
-            // Query categories
+            // Query parent categories
+            var parentCategories = await _context.ItemCategories
+                .Where(c => !c.ParentCategoryId.HasValue)
+                .OrderBy(c => c.CategoryName)
+                .ToListAsync();
+
+            // Prepare category list for dropdown
             var categories = _context.ItemCategories
-                .Where(i => !i.ParentCategoryId.HasValue)
                 .OrderBy(i => i.CategoryName)
                 .Select(i => new
                 {
@@ -39,7 +88,7 @@ namespace easyUTR.Controllers
                 nameof(ItemCategory.CategoryName));
 
             // Retrieve all items
-            var dbContext = _context.Items
+            var query = _context.Items
                 .Include(i => i.Category)
                 .Include(i => i.Supplier)
                 .AsQueryable();
@@ -47,24 +96,36 @@ namespace easyUTR.Controllers
             // Filter by category
             if (vm.CategoryID != null)
             {
-                dbContext = dbContext
-                    .Where(i => i.Category.ParentCategoryId == vm.CategoryID || i.CategoryId == vm.CategoryID);
+                query = query.Where(i => i.Category.ParentCategoryId == vm.CategoryID || i.CategoryId == vm.CategoryID);
             }
 
             // Filter by item name
             if (!string.IsNullOrWhiteSpace(vm.SearchText))
             {
-                dbContext = dbContext.Where(i => i.ItemName.Contains(vm.SearchText));
+                query = query.Where(i => i.ItemName.Contains(vm.SearchText));
             }
 
             // Sort by item name
-            dbContext = dbContext.OrderBy(i => i.ItemName);
+            query = query.OrderBy(i => i.ItemName);
 
-            vm.ItemList = await dbContext.ToListAsync();
+            var items = await query.ToListAsync();
 
-            return View(vm);
+            // Group items by parent category
+            var groupedItems = items
+                .GroupBy(i => i.Category.ParentCategoryId ?? i.CategoryId)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            var viewModel = new ItemListViewModel
+            {
+                ParentCategories = parentCategories,
+                GroupedItems = groupedItems,
+                SearchText = vm.SearchText,
+                CategoryID = vm.CategoryID,
+                CategoryList = vm.CategoryList
+            };
+
+            return View(viewModel);
         }
-
         // GET: Items/Details/5
         public async Task<IActionResult> Details(int? id)
         {
