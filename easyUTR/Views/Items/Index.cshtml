@@ -1,4 +1,4 @@
-﻿@model IEnumerable<easyUTR.Models.Item>
+﻿@model easyUTR.ViewModels.ItemSearchViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -9,29 +9,45 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-controller="Items" asp-action="Index" method="post" class="row">
+    <div class="col-4">
+        <input asp-for="@Model.SearchText" class="form-control" placeholder="Search items..." title="Search for items by name" maxlength="100" />
+    </div>
+    <div class="col-3">
+        <select asp-for="@Model.CategoryID" class="form-control" asp-items="@Model.CategoryList">
+            <option value="">All Categories...</option>
+        </select>
+    </div>
+    <div class="col-3">
+        <button type="submit" class="btn btn-outline-primary">Search</button>
+    </div>
+</form>
+
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ItemName)
+                @Html.DisplayNameFor(model => model.ItemList[0].ItemName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemDescription)
+                @Html.DisplayNameFor(model => model.ItemList[0].ItemDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemImage)
+                @Html.DisplayNameFor(model => model.ItemList[0].ItemImage)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                @Html.DisplayNameFor(model => model.ItemList[0].Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Supplier)
+                @Html.DisplayNameFor(model => model.ItemList[0].Supplier)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.ItemList) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ItemName)
@@ -43,10 +59,10 @@
                 @Html.DisplayFor(modelItem => item.ItemImage)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryId)
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Supplier.SupplierId)
+                @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |

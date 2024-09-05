@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using easyUTR.Data;
 using easyUTR.Models;
+using easyUTR.ViewModels;
+using Microsoft.Identity.Client;
 
 namespace easyUTR.Controllers
 {
@@ -20,10 +22,46 @@ namespace easyUTR.Controllers
         }
 
         // GET: Items
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(ItemSearchViewModel vm)
         {
-            var easyUtrContext = _context.Items.Include(i => i.Category).Include(i => i.Supplier);
-            return View(await easyUtrContext.ToListAsync());
+            // Query categories
+            var categories = _context.ItemCategories
+                .Where(i => !i.ParentCategoryId.HasValue)
+                .OrderBy(i => i.CategoryName)
+                .Select(i => new {
+                    i.CategoryId,
+                    i.CategoryName
+                })
+                .ToList();
+            vm.CategoryList = new SelectList(categories,
+                nameof(ItemCategory.CategoryId),
+                nameof(ItemCategory.CategoryName));
+
+            // Retrieve all items
+            var dbContext = _context.Items
+                .Include(i => i.Category)
+                .Include(i => i.Supplier)
+                .AsQueryable();
+
+            // Filter by category
+            if (vm.CategoryID != null)
+            {
+                dbContext = dbContext
+                    .Where(i => i.Category.ParentCategoryId == vm.CategoryID || i.CategoryId == vm.CategoryID);
+            }
+
+            // Filter by item name
+            if (!string.IsNullOrWhiteSpace(vm.SearchText))
+            {
+                dbContext = dbContext.Where(i => i.ItemName.Contains(vm.SearchText));
+            }
+
+            // Sort by item name
+            dbContext = dbContext.OrderBy(i => i.ItemName);
+
+            vm.ItemList = await dbContext.ToListAsync();
+
+            return View(vm);
         }
 
         // GET: Items/Details/5
