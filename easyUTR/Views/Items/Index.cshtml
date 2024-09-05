@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Supermarket</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -56,7 +56,8 @@
                 @Html.DisplayFor(modelItem => item.ItemDescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ItemImage)
+                <img src="@item.ItemImage" alt="@item.ItemName" 
+                width="300" height="200"></img>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Category.CategoryName)
