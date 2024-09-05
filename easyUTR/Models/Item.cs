@@ -17,11 +17,11 @@ public partial class Item
 
     public int SupplierId { get; set; }
 
-    public virtual ItemCategory Category { get; set; } = null!;
+    public virtual ItemCategory? Category { get; set; } = null!;
 
     public virtual ICollection<ItemsInOrder> ItemsInOrders { get; set; } = new List<ItemsInOrder>();
 
     public virtual ICollection<ItemsInStore> ItemsInStores { get; set; } = new List<ItemsInStore>();
 
-    public virtual Supplier Supplier { get; set; } = null!;
+    public virtual Supplier? Supplier { get; set; } = null!;
 }

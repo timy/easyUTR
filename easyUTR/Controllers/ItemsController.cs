@@ -164,9 +164,13 @@ namespace easyUTR.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.ItemCategories, "CategoryId", "CategoryId");
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierId");
-            return View();
+            ItemCreateViewModel vm = new ItemCreateViewModel
+            {
+                Item = null,
+                SupplierList = new SelectList(_context.Suppliers, "SupplierId", "SupplierName"),
+                CategoryList = new SelectList(_context.ItemCategories, "CategoryId", "CategoryName")
+            };
+            return View(vm);
         }
 
         // POST: Items/Create
@@ -174,7 +178,7 @@ namespace easyUTR.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,ItemName,ItemDescription,ItemImage,CategoryId,SupplierId")] Item item)
+        public async Task<IActionResult> Create([Bind("ItemName,ItemDescription,ItemImage,CategoryId,SupplierId")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -182,9 +186,14 @@ namespace easyUTR.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.ItemCategories, "CategoryId", "CategoryId", item.CategoryId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierId", item.SupplierId);
-            return View(item);
+
+            ItemCreateViewModel vm = new ItemCreateViewModel
+            {
+                Item = item,
+                SupplierList = new SelectList(_context.Suppliers, "SupplierId", "SupplierName"),
+                CategoryList = new SelectList(_context.ItemCategories, "CategoryId", "CategoryName")
+            };
+            return View(vm);
         }
 
         // GET: Items/Edit/5
