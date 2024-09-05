@@ -209,9 +209,13 @@ namespace easyUTR.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.ItemCategories, "CategoryId", "CategoryId", item.CategoryId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierId", item.SupplierId);
-            return View(item);
+            ItemCreateViewModel vm = new ItemCreateViewModel
+            {
+                Item = item,
+                SupplierList = new SelectList(_context.Suppliers, "SupplierId", "SupplierName", item.SupplierId),
+                CategoryList = new SelectList(_context.ItemCategories, "CategoryId", "CategoryName", item.CategoryId)
+            };
+            return View(vm);
         }
 
         // POST: Items/Edit/5
@@ -246,9 +250,15 @@ namespace easyUTR.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.ItemCategories, "CategoryId", "CategoryId", item.CategoryId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierId", item.SupplierId);
-            return View(item);
+
+            ItemCreateViewModel vm = new ItemCreateViewModel
+            {
+                Item = item,
+                SupplierList = new SelectList(_context.Suppliers, "SupplierId", "SupplierName", item.SupplierId),
+                CategoryList = new SelectList(_context.ItemCategories, "CategoryId", "CategoryName", item.CategoryId)
+            };
+
+            return View(vm);
         }
 
         // GET: Items/Delete/5
