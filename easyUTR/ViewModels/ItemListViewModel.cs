@@ -10,5 +10,7 @@ namespace easyUTR.ViewModels
         public string? SearchText { get; set; }
         public int? CategoryID { get; set; }
         public SelectList CategoryList { get; set; }
+        public int? SupplierID { get; set; }
+        public SelectList SupplierList { get; set; }
     }
 }

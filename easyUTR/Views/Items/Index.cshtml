@@ -9,15 +9,20 @@
     <div class="row justify-content-center mb-4">
         <div class="col-md-8">
             <form asp-controller="Items" asp-action="Index" method="get" class="row g-3">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <input asp-for="SearchText" class="form-control" placeholder="Search items..." title="Search for items by name" maxlength="100" />
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <select asp-for="CategoryID" class="form-select" asp-items="Model.CategoryList">
                         <option value="">All Categories...</option>
                     </select>
                 </div>
                 <div class="col-md-3">
+                    <select asp-for="SupplierID" class="form-select" asp-items="Model.SupplierList">
+                        <option value="">All Suppliers...</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
                     <button type="submit" class="btn btn-primary w-100">Search</button>
                 </div>
             </form>

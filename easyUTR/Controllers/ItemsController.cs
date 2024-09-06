@@ -88,6 +88,19 @@ namespace easyUTR.Controllers
                 nameof(ItemCategory.CategoryId),
                 nameof(ItemCategory.CategoryName));
 
+
+            // Prepare supplier list for dropdown
+            var suppliers = await _context.Suppliers
+                .OrderBy(i => i.SupplierName)
+                .Select(i => new {
+                    i.SupplierId,
+                    i.SupplierName
+                })
+                .ToListAsync();
+            vm.SupplierList = new SelectList(suppliers,
+                nameof(Supplier.SupplierId),
+                nameof(Supplier.SupplierName));
+
             // Retrieve all items
             var query = _context.Items
                 .Include(i => i.Category)
@@ -98,6 +111,12 @@ namespace easyUTR.Controllers
             if (vm.CategoryID != null)
             {
                 query = query.Where(i => i.Category.ParentCategoryId == vm.CategoryID || i.CategoryId == vm.CategoryID);
+            }
+
+            // Filter by supplier
+            if (vm.SupplierID != null)
+            {
+                query = query.Where(i => i.SupplierId == vm.SupplierID);
             }
 
             // Filter by item name
@@ -122,7 +141,9 @@ namespace easyUTR.Controllers
                 GroupedItems = groupedItems,
                 SearchText = vm.SearchText,
                 CategoryID = vm.CategoryID,
-                CategoryList = vm.CategoryList
+                CategoryList = vm.CategoryList,
+                SupplierID = vm.SupplierID,
+                SupplierList = vm.SupplierList
             };
 
             return View(viewModel);
