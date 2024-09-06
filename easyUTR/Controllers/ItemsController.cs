@@ -9,6 +9,7 @@ using easyUTR.Data;
 using easyUTR.Models;
 using easyUTR.ViewModels;
 using Microsoft.Identity.Client;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace easyUTR.Controllers
 {
@@ -159,6 +160,47 @@ namespace easyUTR.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddToCart(int ItemId, int ItemQuantity)
+        {
+            Item itemToAdd = _context.Items.Find(ItemId); // TODO: itemToAdd may be null here - redirect to out-of-stock message
+
+            // Retrieve cart items
+            List<ShoppingCartItem> cartItems = HttpContext.Session.Get<List<ShoppingCartItem>>("Cart") ?? [];
+            // Check if the item is already in the cart
+            var existingCartItem = cartItems.FirstOrDefault(i => i.Item.ItemId == ItemId);
+            if (existingCartItem != null)
+            {
+                // If already in the cart, only increase the quantity
+                existingCartItem.Quantity += ItemQuantity;
+            } else
+            {
+                // If not in the cart, create new cart item
+                cartItems.Add(new ShoppingCartItem
+                {
+                    Item = itemToAdd,
+                    Quantity = ItemQuantity
+                });
+            }
+            HttpContext.Session.Set("Cart", cartItems);
+
+            return RedirectToAction("ViewCart");
+        }
+
+
+        public IActionResult ViewCart()
+        {
+            var cartItems = HttpContext.Session.Get<List<ShoppingCartItem>>("Cart") ?? [];
+            var cartViewModel = new ShoppingCartViewModel
+            {
+                CartItems = cartItems,
+                TotalQuantity = cartItems.Sum(i => i.Quantity)
+                // TODO: Total price need to be evaluated according to which store the customer buys it
+            };
+            return View(cartViewModel);
         }
 
         // GET: Items/Create

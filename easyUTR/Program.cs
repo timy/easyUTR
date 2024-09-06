@@ -7,6 +7,8 @@ builder.Services.AddDbContext<EasyUtrContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("EasyUtrContext") ??
     throw new InvalidOperationException("Connection string 'EasyUtrContext' not found.")));
 
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -19,6 +21,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
+
+app.UseSession();
 
 app.UseRouting();
 
