@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using easyUTR.Data;
 using easyUTR.Models;
+using easyUTR.ViewModels;
+using easyUTR.DetailModel;
 
 namespace easyUTR.Controllers
 {
@@ -27,13 +29,9 @@ namespace easyUTR.Controllers
         }
 
         // GET: Stores/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id, StoreItemViewModel vm)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+            // Get store information
             var store = await _context.Stores
                 .Include(s => s.Address)
                 .FirstOrDefaultAsync(m => m.StoreId == id);
@@ -42,7 +40,105 @@ namespace easyUTR.Controllers
                 return NotFound();
             }
 
-            return View(store);
+            // Query parent categories
+            var parentCategories = await _context.ItemCategories
+                .Where(c => !c.ParentCategoryId.HasValue)
+                .OrderBy(c => c.CategoryName)
+                .ToListAsync();
+
+            // Prepare category list for dropdown
+            var categories = await _context.ItemCategories
+                .OrderBy(i => i.CategoryName)
+                .Select(i => new
+                {
+                    i.CategoryId,
+                    i.CategoryName
+                })
+                .ToListAsync();
+
+            // Prepare supplier list for dropdown
+            var suppliers = await _context.Suppliers
+                .OrderBy(i => i.SupplierName)
+                .Select(i => new {
+                    i.SupplierId,
+                    i.SupplierName
+                })
+                .ToListAsync();
+
+            var query = from itemsInStore in _context.ItemsInStores
+                    where itemsInStore.StoreId == id
+                    join item in _context.Items
+                    on itemsInStore.ItemId equals item.ItemId
+                    join category in _context.ItemCategories
+                    on item.CategoryId equals category.CategoryId
+                    join supplier in _context.Suppliers
+                    on item.SupplierId equals supplier.SupplierId
+                    select new StoreItemDetailModel {
+                        Detail = new ItemDetailModel {
+                            ItemID = item.ItemId,
+                            ItemName = item.ItemName,
+                            ItemDescription = item.ItemDescription,
+                            ItemImage = item.ItemImage ?? string.Empty,
+                            CategoryId = category.CategoryId,
+                            CategoryName = category.CategoryName,
+                            ParentCategoryId = category.ParentCategoryId,
+                            ParentCategoryName = category.ParentCategoryId.HasValue ? (
+                            from c in _context.ItemCategories
+                            where c.CategoryId == category.ParentCategoryId
+                            select c.CategoryName).ToString() : null,
+                            SupplierId = supplier.SupplierId,
+                            SupplierName = supplier.SupplierName,
+                            SupplierDescription = supplier.SupplierDescription,
+                            SupplierUrl = supplier.SupplierUrl
+                        },
+                        Price = itemsInStore.Price,
+                        NumberInStock = itemsInStore.NumberInStock,
+                    };
+
+            // Filter by category
+            if (vm.CategoryID.HasValue)
+            {
+                query = from record in query
+                    where record.Detail.ParentCategoryId == vm.CategoryID || record.Detail.CategoryId == vm.CategoryID
+                    select record;
+            }
+
+            // Filter by supplier
+            if (vm.SupplierID.HasValue)
+            {
+                query = from record in query
+                    where record.Detail.SupplierId == vm.SupplierID
+                    select record;
+            }
+
+            // Filter by item name
+            if (!string.IsNullOrWhiteSpace(vm.SearchText))
+            {
+                query = from record in query
+                    where record.Detail.ItemName.Contains(vm.SearchText)
+                    select record;
+            }
+
+            // Group items by parent category
+            var groupedItems = await query
+                .GroupBy(i => i.Detail.ParentCategoryId ?? i.Detail.CategoryId)
+                .ToDictionaryAsync(g => g.Key, g => g.ToList());
+
+            vm.ParentCategories = parentCategories;
+            vm.Store.StoreID = id;
+            vm.Store.StoreName = store.StoreName;
+            vm.Store.StoreAddress = $"{store.Address.AddressLine}, {store.Address.Suburb}";
+            vm.Store.StoreDescription = store.StoreDescription;
+            vm.Store.StoreImage = store.StoreImage ?? string.Empty;
+            vm.Store.Items = groupedItems;
+            vm.CategoryList = new SelectList(categories,
+                nameof(ItemCategory.CategoryId),
+                nameof(ItemCategory.CategoryName));
+            vm.SupplierList = new SelectList(suppliers,
+                nameof(Supplier.SupplierId),
+                nameof(Supplier.SupplierName));
+
+            return View(vm);
         }
 
         // GET: Stores/Create
