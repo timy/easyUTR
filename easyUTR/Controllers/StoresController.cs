@@ -9,6 +9,7 @@ using easyUTR.Data;
 using easyUTR.Models;
 using easyUTR.ViewModels;
 using easyUTR.DetailModel;
+using Humanizer;
 
 namespace easyUTR.Controllers
 {
@@ -29,12 +30,12 @@ namespace easyUTR.Controllers
         }
 
         // GET: Stores/Details/5
-        public async Task<IActionResult> Details(int id, StoreItemViewModel vm)
+        public async Task<IActionResult> Details(int storeId, StoreItemViewModel vm)
         {
             // Get store information
             var store = await _context.Stores
                 .Include(s => s.Address)
-                .FirstOrDefaultAsync(m => m.StoreId == id);
+                .FirstOrDefaultAsync(m => m.StoreId == storeId);
             if (store == null)
             {
                 return NotFound();
@@ -66,7 +67,7 @@ namespace easyUTR.Controllers
                 .ToListAsync();
 
             var query = from itemsInStore in _context.ItemsInStores
-                    where itemsInStore.StoreId == id
+                    where itemsInStore.StoreId == storeId
                     join item in _context.Items
                     on itemsInStore.ItemId equals item.ItemId
                     join category in _context.ItemCategories
@@ -125,7 +126,7 @@ namespace easyUTR.Controllers
                 .ToDictionaryAsync(g => g.Key, g => g.ToList());
 
             vm.ParentCategories = parentCategories;
-            vm.Store.StoreID = id;
+            vm.Store.StoreID = storeId;
             vm.Store.StoreName = store.StoreName;
             vm.Store.StoreAddress = $"{store.Address.AddressLine}, {store.Address.Suburb}";
             vm.Store.StoreDescription = store.StoreDescription;
@@ -302,6 +303,7 @@ namespace easyUTR.Controllers
             var storeItem = await query.FirstOrDefaultAsync();
             var vm = new EditStoreItemViewModel
             {
+                StoreId = storeId,
                 SupplierList = new SelectList(_context.Suppliers, "SupplierId", "SupplierName", storeItem.Detail.SupplierId),
                 CategoryList = new SelectList(_context.ItemCategories, "CategoryId", "CategoryName", storeItem.Detail.CategoryId),
                 Item = storeItem
@@ -310,39 +312,32 @@ namespace easyUTR.Controllers
         }
 
         // POST: Stores/EditStoreItem?storeId=5&itemId=1
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditStoreItem(int id, [Bind("StoreId,StoreName,StoreDescription,StoreImage,AddressId")] Store store)
+        public async Task<IActionResult> EditStoreItem(int storeId, int itemId, decimal price, int numberInStock)
         {
-            if (id != store.StoreId)
+            var itemInStore = await _context.ItemsInStores
+                .Where(i => i.StoreId == storeId && i.ItemId == itemId)
+                .FirstOrDefaultAsync();
+
+            if (itemInStore == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            itemInStore.Price = price;
+            itemInStore.NumberInStock = numberInStock;
+
+            try
             {
-                try
-                {
-                    _context.Update(store);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!StoreExists(store.StoreId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(itemInStore);
+                await _context.SaveChangesAsync();
             }
-            ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "AddressId", store.AddressId);
-            return View(store);
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+            return RedirectToAction(nameof(Details), new {storeId = storeId});
         }
 
 

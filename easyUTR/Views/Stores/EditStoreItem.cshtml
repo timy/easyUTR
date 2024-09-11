@@ -4,15 +4,16 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit Store Item</h1>
+<h1>Edit Store Item (StoreID: @Model.StoreId)</h1>
 
 <h4>Item</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="EditStoreItem" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Item.Detail.ItemID" />
+            <input type="hidden" name="storeId" value="@Model.StoreId" />
+            <input type="hidden" name="itemId" value="@Model.Item.Detail.ItemID" />
             <div class="form-group">
                 <label asp-for="Item.Detail.ItemName" class="control-label">Item Name</label>
                 <input asp-for="Item.Detail.ItemName" class="form-control" />
@@ -39,14 +40,12 @@
                 <span asp-validation-for="Item.Detail.SupplierId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Item.Price" class="control-label">Price</label>
-                <input asp-for="Item.Price" class="form-control" />
-                <span asp-validation-for="Item.Price" class="text-danger"></span>
+                <label for="price" class="control-label">Price</label>
+                <input id="price" name="price" value="@Model.Item.Price" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Item.NumberInStock" class="control-label">In-stock number</label>
-                <input asp-for="Item.NumberInStock" class="form-control" />
-                <span asp-validation-for="Item.NumberInStock" class="text-danger"></span>
+                <label for="numberInStock" class="control-label">In-stock number</label>
+                <input id="numberInStock" name="numberInStock" value="@Model.Item.NumberInStock" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
