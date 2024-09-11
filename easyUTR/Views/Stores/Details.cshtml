@@ -4,11 +4,16 @@
     ViewData["Title"] = "Details";
 }
 
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
 <h1>Details</h1>
 
 <div>
     <h4>Store</h4>
     <hr />
+    <a asp-action="Edit" asp-route-id="@Model?.Store.StoreID">Edit Store Information</a>
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Store.StoreName)
@@ -36,7 +41,38 @@
         </dd>
     </dl>
 </div>
+
+
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Store.StoreID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <h4>Items Management</h4>
+    <hr />
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Number in Stock</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var groupedItems in Model.Store.Items)
+            {
+                @foreach (var item in groupedItems.Value)
+                {
+                    <tr>
+                        <td>@item.Detail.ItemName</td>
+                        <td>@item.Price</td>
+                        <td>@item.NumberInStock</td>
+                        <td><a asp-controller="Items" asp-action="Edit" asp-route-id="@item.Detail.ItemID" class="btn btn-sm btn-outline-secondary">Edit</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 </div>
+
+
+
+
+
