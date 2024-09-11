@@ -256,5 +256,97 @@ namespace easyUTR.Controllers
         {
             return _context.Stores.Any(e => e.StoreId == id);
         }
+
+
+
+
+        // GET: Stores/EditStoreItem?storeId=5&itemId=1
+        public async Task<IActionResult> EditStoreItem(int storeId, int itemId)
+        {
+            var queryItem = from item in _context.Items
+                            where item.ItemId == itemId
+                            select item;
+
+            var query = from itemsInStore in _context.ItemsInStores
+                        where itemsInStore.StoreId == storeId
+                        join item in queryItem
+                        on itemsInStore.ItemId equals item.ItemId
+                        join category in _context.ItemCategories
+                        on item.CategoryId equals category.CategoryId
+                        join supplier in _context.Suppliers
+                        on item.SupplierId equals supplier.SupplierId
+                        select new StoreItemDetailModel
+                        {
+                            Detail = new ItemDetailModel
+                            {
+                                ItemID = item.ItemId,
+                                ItemName = item.ItemName,
+                                ItemDescription = item.ItemDescription,
+                                ItemImage = item.ItemImage ?? string.Empty,
+                                CategoryId = category.CategoryId,
+                                CategoryName = category.CategoryName,
+                                ParentCategoryId = category.ParentCategoryId,
+                                ParentCategoryName = category.ParentCategoryId.HasValue ? (
+                                from c in _context.ItemCategories
+                                where c.CategoryId == category.ParentCategoryId
+                                select c.CategoryName).ToString() : null,
+                                SupplierId = supplier.SupplierId,
+                                SupplierName = supplier.SupplierName,
+                                SupplierDescription = supplier.SupplierDescription,
+                                SupplierUrl = supplier.SupplierUrl
+                            },
+                            Price = itemsInStore.Price,
+                            NumberInStock = itemsInStore.NumberInStock,
+                        };
+
+            var storeItem = await query.FirstOrDefaultAsync();
+            var vm = new EditStoreItemViewModel
+            {
+                SupplierList = new SelectList(_context.Suppliers, "SupplierId", "SupplierName", storeItem.Detail.SupplierId),
+                CategoryList = new SelectList(_context.ItemCategories, "CategoryId", "CategoryName", storeItem.Detail.CategoryId),
+                Item = storeItem
+            };
+            return View(vm);
+        }
+
+        // POST: Stores/EditStoreItem?storeId=5&itemId=1
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditStoreItem(int id, [Bind("StoreId,StoreName,StoreDescription,StoreImage,AddressId")] Store store)
+        {
+            if (id != store.StoreId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(store);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!StoreExists(store.StoreId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "AddressId", store.AddressId);
+            return View(store);
+        }
+
+
+
+
     }
 }

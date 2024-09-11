@@ -1,0 +1,64 @@
+﻿@model easyUTR.ViewModels.EditStoreItemViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Store Item</h1>
+
+<h4>Item</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Item.Detail.ItemID" />
+            <div class="form-group">
+                <label asp-for="Item.Detail.ItemName" class="control-label">Item Name</label>
+                <input asp-for="Item.Detail.ItemName" class="form-control" />
+                <span asp-validation-for="Item.Detail.ItemName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.Detail.ItemDescription" class="control-label">Description</label>
+                <input asp-for="Item.Detail.ItemDescription" class="form-control" />
+                <span asp-validation-for="Item.Detail.ItemDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.Detail.ItemImage" class="control-label">Image URL</label>
+                <input asp-for="Item.Detail.ItemImage" class="form-control" />
+                <span asp-validation-for="Item.Detail.ItemImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.Detail.CategoryId" class="control-label">Category</label>
+                <select asp-for="Item.Detail.CategoryId" class="form-control" asp-items="Model.CategoryList"></select>
+                <span asp-validation-for="Item.Detail.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.Detail.SupplierId" class="control-label">Supplier</label>
+                <select asp-for="Item.Detail.SupplierId" class="form-control" asp-items="Model.SupplierList"></select>
+                <span asp-validation-for="Item.Detail.SupplierId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.Price" class="control-label">Price</label>
+                <input asp-for="Item.Price" class="form-control" />
+                <span asp-validation-for="Item.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.NumberInStock" class="control-label">In-stock number</label>
+                <input asp-for="Item.NumberInStock" class="form-control" />
+                <span asp-validation-for="Item.NumberInStock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

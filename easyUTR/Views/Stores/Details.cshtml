@@ -64,7 +64,10 @@
                         <td>@item.Detail.ItemName</td>
                         <td>@item.Price</td>
                         <td>@item.NumberInStock</td>
-                        <td><a asp-controller="Items" asp-action="Edit" asp-route-id="@item.Detail.ItemID" class="btn btn-sm btn-outline-secondary">Edit</a></td>
+                        <td><a asp-action="EditStoreItem"
+                               asp-route-storeId="@Model.Store.StoreID"
+                               asp-route-itemId="@item.Detail.ItemID"
+                               class="btn btn-sm btn-outline-secondary">Edit</a></td>
                     </tr>
                 }
             }
