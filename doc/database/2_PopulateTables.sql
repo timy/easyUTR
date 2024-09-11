@@ -361,6 +361,7 @@ VALUES (10, 10, 2, 5.00);
 
 /****** ItemsInStore ******/
 
+/****** Store 1 (UTR West Terrace) ******/
 INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
 VALUES (1, 1, 1.55, 500);  
 
@@ -376,6 +377,7 @@ VALUES (1, 4, 3.50, 150);
 INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
 VALUES (1, 5, 5.00, 200); 
 
+/****** Store 2 (UTR Goodwood Rd) ******/
 INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
 VALUES (2, 1, 1.60, 450);  
 
@@ -391,6 +393,7 @@ VALUES (2, 6, 3.00, 120);
 INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
 VALUES (2, 7, 4.50, 100); 
 
+/****** Store 3 (UTR North East Rd) ******/
 INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
 VALUES (3, 1, 1.65, 400);  
 
@@ -405,3 +408,115 @@ VALUES (3, 8, 3.75, 90);
 
 INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
 VALUES (3, 5, 4.75, 160);  
+
+/****** Store 4 (UTR Main South Rd) ******/
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (4, 1, 1.50, 520);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (4, 2, 1.70, 380);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (4, 3, 1.65, 310);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (4, 9, 3.25, 110);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (4, 6, 2.75, 180);  
+
+/****** Store 5 (UTR Unley Rd) ******/
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (5, 1, 1.55, 490);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (5, 2, 1.70, 360);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (5, 3, 1.60, 330); 
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (5, 4, 3.50, 140);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (5, 5, 5.00, 130);  
+
+/****** Store 6 (UTR Magill Rd) ******/
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (6, 1, 1.55, 520);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (6, 2, 1.75, 410);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (6, 3, 1.60, 340);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (6, 7, 4.00, 180);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (6, 8, 3.50, 150); 
+
+/****** Store 7 (UTR Portrush Rd) ******/
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (7, 1, 1.60, 530);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (7, 2, 1.80, 450);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (7, 3, 1.70, 360);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (7, 4, 3.60, 160);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (7, 9, 4.00, 120); 
+
+/****** Store 8 (UTR Henley Beach Rd) ******/
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (8, 1, 1.50, 540); 
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (8, 2, 1.70, 460); 
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (8, 3, 1.65, 380); 
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (8, 6, 2.90, 140); 
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (8, 7, 4.50, 170);  
+
+/****** Store 9 (UTR South Rd) ******/
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (9, 1, 1.55, 560); 
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (9, 2, 1.80, 470); 
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (9, 3, 1.70, 370); 
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (9, 4, 3.40, 150);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (9, 5, 5.00, 120); 
+
+/****** Store 10 (UTR Payneham Rd) ******/
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (10, 1, 1.60, 500);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (10, 2, 1.85, 400);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (10, 3, 1.65, 330);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (10, 8, 3.75, 140);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (10, 7, 4.25, 130);  
