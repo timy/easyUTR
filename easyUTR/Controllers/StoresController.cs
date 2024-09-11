@@ -339,9 +339,5 @@ namespace easyUTR.Controllers
             }
             return RedirectToAction(nameof(Details), new {storeId = storeId});
         }
-
-
-
-
     }
 }

@@ -16,27 +16,27 @@
             <input type="hidden" name="itemId" value="@Model.Item.Detail.ItemID" />
             <div class="form-group">
                 <label asp-for="Item.Detail.ItemName" class="control-label">Item Name</label>
-                <input asp-for="Item.Detail.ItemName" class="form-control" />
+                <input asp-for="Item.Detail.ItemName" class="form-control" disabled />
                 <span asp-validation-for="Item.Detail.ItemName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Item.Detail.ItemDescription" class="control-label">Description</label>
-                <input asp-for="Item.Detail.ItemDescription" class="form-control" />
+                <input asp-for="Item.Detail.ItemDescription" class="form-control" disabled />
                 <span asp-validation-for="Item.Detail.ItemDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Item.Detail.ItemImage" class="control-label">Image URL</label>
-                <input asp-for="Item.Detail.ItemImage" class="form-control" />
+                <input asp-for="Item.Detail.ItemImage" class="form-control" disabled />
                 <span asp-validation-for="Item.Detail.ItemImage" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Item.Detail.CategoryId" class="control-label">Category</label>
-                <select asp-for="Item.Detail.CategoryId" class="form-control" asp-items="Model.CategoryList"></select>
+                <select asp-for="Item.Detail.CategoryId" class="form-control" asp-items="Model.CategoryList" disabled></select>
                 <span asp-validation-for="Item.Detail.CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Item.Detail.SupplierId" class="control-label">Supplier</label>
-                <select asp-for="Item.Detail.SupplierId" class="form-control" asp-items="Model.SupplierList"></select>
+                <select asp-for="Item.Detail.SupplierId" class="form-control" asp-items="Model.SupplierList" disabled></select>
                 <span asp-validation-for="Item.Detail.SupplierId" class="text-danger"></span>
             </div>
             <div class="form-group">
