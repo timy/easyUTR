@@ -365,15 +365,43 @@ INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
 VALUES (1, 1, 1.55, 500);  
 
 INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
-VALUES (2, 2, 1.75, 400);  
+VALUES (1, 2, 1.75, 400);  
 
 INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
-VALUES (3, 3, 1.60, 300);  
+VALUES (1, 3, 1.60, 300); 
 
 INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
-VALUES (4, 4, 3.50, 100);  
+VALUES (1, 4, 3.50, 150);  
 
 INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
-VALUES (5, 5, 5.00, 150);  
+VALUES (1, 5, 5.00, 200); 
 
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (2, 1, 1.60, 450);  
 
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (2, 2, 1.80, 350);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (2, 3, 1.70, 320);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (2, 6, 3.00, 120);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (2, 7, 4.50, 100); 
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (3, 1, 1.65, 400);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (3, 2, 1.85, 300);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (3, 3, 1.75, 280);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (3, 8, 3.75, 90);  
+
+INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
+VALUES (3, 5, 4.75, 160);  
