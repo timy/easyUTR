@@ -75,14 +75,22 @@
                     </tr>
                 </thead>
                 <tbody>
-@*                     @foreach()
+                    @foreach (var store in Model.ItemStores)
                     {
                         <tr>
-                            <td></td>
-                            <td></td>
+                            <td>@store.StoreName</td>
+                            <td>@store.Price</td>
+                            <td>
+                                <form asp-action="AddToCart" method="post">
+                                    <input type="hidden" name="ItemId" value="@Model.Detail?.ItemId" />
+                                    <label for="ItemQuantity">Quantity:</label>
+                                    <input type="number" id="ItemQuantity" name="ItemQuantity" value="1" step="1" min="1" max="20" />
+                                    <button class="btn btn-primary mb-3">Add to Cart</button>
+                                </form>
+                            </td>
                         </tr>
                     }
- *@                </tbody>
+                </tbody>
             </table>
         </div>
         <div class="col-md-4">
