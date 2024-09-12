@@ -16,6 +16,9 @@
             <th>
                 @Html.DisplayNameFor(Model => Model.CartItems[0].Quantity)
             </th>
+            <th>
+
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +30,11 @@
                 </td>
                 <td>
                     @items.Quantity
+                </td>
+                <td>
+                    <a asp-action="RemoveFromCart"
+                    asp-route-itemId="@items.Item.ItemId"
+                    class="btn btn-outline-primary btn-sm"  hidden>Remove</a>
                 </td>
             </tr>
         }
