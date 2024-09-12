@@ -234,6 +234,32 @@ namespace easyUTR.Controllers
             return RedirectToAction("ViewCart");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveFromCart(int storeId, int itemId, int itemQuantity)
+        {
+            Item? itemToAdd = _context.Items.Find(itemId); // TODO: itemToAdd may be null here
+            // TODO: storeToAdd may be null here
+            // TODO: check itemsInStore to see if the item is out of stock
+
+            // Retrieve cart items
+            List<ShoppingCartItem> cartItems = HttpContext.Session.Get<List<ShoppingCartItem>>("Cart") ?? [];
+            // Check if the item is already in the cart
+            var existingCartItem = cartItems.FirstOrDefault(i => i.Item?.ItemId == itemId && i.ItemStore?.StoreId == storeId);
+            if (existingCartItem.Quantity > itemQuantity)
+            {
+                // If already in the cart, only increase the quantity
+                existingCartItem.Quantity -= itemQuantity;
+            }
+            else
+            {
+                cartItems.Remove(existingCartItem);
+            }
+            HttpContext.Session.Set("Cart", cartItems);
+
+            return RedirectToAction("ViewCart");
+        }
+
 
         public IActionResult ViewCart()
         {

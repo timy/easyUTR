@@ -52,9 +52,14 @@
                             </td>
                            
                             <td>
-                                <button class="btn btn-outline-danger btn-sm remove-item" data-item-id="@item.Item.ItemId">
-                                    <i class="bi bi-trash"></i>
-                                </button>
+                                <form asp-action="RemoveFromCart" method="post">
+                                    <input type="hidden" name="storeId" value="@item.ItemStore?.StoreId" />
+                                    <input type="hidden" name="itemId" value="@item.Item.ItemId" />
+                                    <input type="hidden" name="itemQuantity" value="@item.Quantity" />
+                                    <button type="submit" class="btn btn-outline-danger btn-sm remove-item">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     }
