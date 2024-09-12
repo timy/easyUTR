@@ -302,6 +302,7 @@ namespace easyUTR.Controllers
                 {
                     if (ImageFile != null && ImageFile.Length > 0)
                     {
+                        // Handle file upload
                         var uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "images", "items");
                         var uniqueFileName = Guid.NewGuid().ToString() + "_" + ImageFile.FileName;
                         var filePath = Path.Combine(uploadsFolder, uniqueFileName);
@@ -313,6 +314,13 @@ namespace easyUTR.Controllers
 
                         model.Item.ItemImage = "/images/items/" + uniqueFileName;
                     }
+                    else if (string.IsNullOrWhiteSpace(model.Item.ItemImage))
+                    {
+                        // If no file was uploaded and no URL was provided, keep the existing image
+                        var existingItem = await _context.Items.AsNoTracking().FirstOrDefaultAsync(i => i.ItemId == id);
+                        model.Item.ItemImage = existingItem.ItemImage;
+                    }
+                    // If a new URL was provided in model.Item.ItemImage, it will be used as is
 
                     _context.Update(model.Item);
                     await _context.SaveChangesAsync();

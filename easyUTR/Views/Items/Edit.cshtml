@@ -38,11 +38,16 @@
                 <div class="mb-3">
                     <label class="form-label">Current Image</label>
                     <img src="@Model.Item.ItemImage" alt="Current Item Image" class="img-thumbnail mb-2" style="max-width: 200px;" id="currentImage" />
-                    <input type="hidden" asp-for="Item.ItemImage" />
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Upload New Image</label>
+                    <label asp-for="Item.ItemImage" class="form-label">Image URL</label>
+                    <input asp-for="Item.ItemImage" class="form-control" id="imageUrl" />
+                    <span asp-validation-for="Item.ItemImage" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Or Upload New Image</label>
                     <input type="file" class="form-control" name="ImageFile" id="imageUpload" accept="image/*" />
                 </div>
 
@@ -68,9 +73,15 @@
                 var fr = new FileReader();
                 fr.onload = function () {
                     document.getElementById('currentImage').src = fr.result;
+                    document.getElementById('imageUrl').value = ''; // Clear the URL input when a file is selected
                 }
                 fr.readAsDataURL(files[0]);
             }
+        }
+
+        document.getElementById('imageUrl').onchange = function () {
+            document.getElementById('currentImage').src = this.value;
+            document.getElementById('imageUpload').value = ''; // Clear the file input when a URL is entered
         }
     </script>
 }
