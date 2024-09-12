@@ -1,4 +1,4 @@
-﻿@model easyUTR.ViewModels.ItemDetailViewModel
+﻿@model easyUTR.ViewModels.Items.ItemDetailViewModel
 @{
     ViewData["Title"] = Model.Item.ItemName;
 }
@@ -64,6 +64,25 @@
                     </tr>
                     <!-- Add more details as needed -->
                 </tbody>
+            </table>
+
+            <h3>You can get this @Model.Item.ItemName from the following stores:</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Store Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+@*                     @foreach()
+                    {
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+ *@                </tbody>
             </table>
         </div>
         <div class="col-md-4">

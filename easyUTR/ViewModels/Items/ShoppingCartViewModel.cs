@@ -1,6 +1,6 @@
 ﻿using easyUTR.Models;
 
-namespace easyUTR.ViewModels
+namespace easyUTR.ViewModels.Items
 {
     public class ShoppingCartViewModel
     {

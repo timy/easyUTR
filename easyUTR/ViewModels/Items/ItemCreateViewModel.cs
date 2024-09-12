@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using easyUTR.Models;
 
-namespace easyUTR.ViewModels
+namespace easyUTR.ViewModels.Items
 {
     public class ItemCreateViewModel
     {
