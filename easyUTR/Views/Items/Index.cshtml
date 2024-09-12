@@ -1,29 +1,34 @@
 ﻿@model easyUTR.ViewModels.Items.ItemListViewModel
 @{
-    ViewData["Title"] = "Supermarket";
+    ViewData["Title"] = "UTR Shopping";
 }
 
 <div class="container my-5">
-    <h1 class="text-center mb-4" style="color: var(--primary-color);">Supermarket Items</h1>
+    <h1 class="text-center mb-4">UTR All Products</h1>
 
     <div class="row justify-content-center mb-4">
-        <div class="col-md-8">
+        <div class="col-lg-10">
             <form asp-controller="Items" asp-action="Index" method="get" class="row g-3">
                 <div class="col-md-4">
-                    <input asp-for="SearchText" class="form-control" placeholder="Search items..." title="Search for items by name" maxlength="100" />
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input asp-for="SearchText" class="form-control" placeholder="Search items..." title="Search for items by name" maxlength="100" />
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <select asp-for="CategoryID" class="form-select" asp-items="Model.CategoryList">
-                        <option value="">All Categories...</option>
+                        <option value="">All Categories</option>
                     </select>
                 </div>
                 <div class="col-md-3">
                     <select asp-for="SupplierID" class="form-select" asp-items="Model.SupplierList">
-                        <option value="">All Suppliers...</option>
+                        <option value="">All Suppliers</option>
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-filter me-2"></i>Filter
+                    </button>
                 </div>
             </form>
         </div>
@@ -33,50 +38,141 @@
     {
         if (Model.GroupedItems.TryGetValue(parentCategory.CategoryId, out var categoryItems) && categoryItems.Any())
         {
-            <h2 class="mt-5 mb-4">@parentCategory.CategoryName</h2>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                @foreach (var item in categoryItems)
-                {
-                    <div class="col">
-                        <div class="card h-100 shadow-sm item-card" onclick="location.href='@Url.Action("Details", "Items", new { id = item.ItemId })'">
-                            <img src="@item.ItemImage" class="card-img-top" alt="@item.ItemName" style="height: 200px; object-fit: cover;">
-                            <div class="card-body">
-                                <h5 class="card-title">@item.ItemName</h5>
-                                <p class="card-text">@item.ItemDescription</p>
-                                <p class="card-text"><small class="text-muted">Category: @item.Category.CategoryName</small></p>
-                                <p class="card-text"><small class="text-muted">Supplier: @item.Supplier.SupplierName</small></p>
-                            </div>
-                            <div class="card-footer bg-transparent border-top-0">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a asp-action="Edit" asp-route-id="@item.ItemId" class="btn btn-sm btn-outline-secondary" onclick="event.stopPropagation();">Edit</a>
-                                        <a asp-action="Delete" asp-route-id="@item.ItemId" class="btn btn-sm btn-outline-danger" onclick="event.stopPropagation();">Delete</a>
+            <div class="category-section mb-5">
+                <h2 class="category-title mb-4">@parentCategory.CategoryName</h2>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    @foreach (var item in categoryItems)
+                    {
+                        <div class="col">
+                            <div class="card h-100 shadow-sm item-card" data-item-id="@item.ItemId">
+                                <div class="card-img-wrapper">
+                                    <img src="@item.ItemImage" class="card-img-top" alt="@item.ItemName">
+                                    <div class="card-img-overlay d-flex align-items-end">
+                                        <span class="badge bg-primary">@item.Category.CategoryName</span>
                                     </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.ItemName</h5>
+                                    <p class="card-text item-description">@item.ItemDescription</p>
+                                    <p class="card-text"><small class="text-muted">Supplier: @item.Supplier.SupplierName</small></p>
+                                    <p class="card-text fw-bold">Price:</p>
+                                </div>
+                                <div class="card-footer bg-transparent border-top-0">
+                                    <form asp-action="AddToCart" method="post" class="add-to-cart-form">
+                                        <input type="hidden" name="ItemId" value="@item.ItemId" />
+                                        <div class="input-group mb-2">
+                                            <input type="number" name="ItemQuantity" value="1" min="1" max="20" class="form-control" aria-label="Quantity">
+                                            <button class="btn btn-success add-to-cart" type="submit">
+                                                <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         }
     }
-
-    <div class="text-center mt-4">
-        <a asp-action="Create" class="btn btn-success">Create New Item</a>
-    </div>
 </div>
+
+@section Styles {
+    <style>
+        .category-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .item-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+            .item-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+        .card-img-wrapper {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+            .card-img-wrapper img {
+                object-fit: cover;
+                height: 100%;
+                width: 100%;
+            }
+
+        .item-description {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .badge {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .add-to-cart {
+            transition: background-color 0.3s ease;
+        }
+
+            .add-to-cart:hover {
+                background-color: #218838;
+            }
+    </style>
+}
 
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var cards = document.querySelectorAll('.item-card');
-            cards.forEach(function (card) {
+            var itemCards = document.querySelectorAll('.item-card');
+            var addToCartForms = document.querySelectorAll('.add-to-cart-form');
+
+            itemCards.forEach(function (card) {
                 card.addEventListener('click', function (e) {
-                    if (!e.target.closest('.btn-group')) {
-                        window.location = this.getAttribute('onclick').split("'")[1];
+                    if (!e.target.closest('.add-to-cart-form')) {
+                        var itemId = this.getAttribute('data-item-id');
+                        window.location.href = '/Items/Details/' + itemId;
                     }
                 });
             });
+
+            addToCartForms.forEach(function (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var formData = new FormData(this);
+                    addToCart(formData);
+                });
+            });
+
+            function addToCart(formData) {
+                fetch('/Items/AddToCart', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Item added to cart successfully!');
+                            // You can update the cart icon or count here if needed
+                        } else {
+                            alert('Failed to add item to cart. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred. Please try again.');
+                    });
+            }
         });
     </script>
 }
