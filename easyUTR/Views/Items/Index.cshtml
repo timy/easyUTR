@@ -58,15 +58,6 @@
                                     <p class="card-text fw-bold">Price:</p>
                                 </div>
                                 <div class="card-footer bg-transparent border-top-0">
-                                    <form asp-action="AddToCart" method="post" class="add-to-cart-form">
-                                        <input type="hidden" name="ItemId" value="@item.ItemId" />
-                                        <div class="input-group mb-2">
-                                            <input type="number" name="ItemQuantity" value="1" min="1" max="20" class="form-control" aria-label="Quantity">
-                                            <button class="btn btn-success add-to-cart" type="submit">
-                                                <i class="bi bi-cart-plus me-2"></i>Add to Cart
-                                            </button>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
