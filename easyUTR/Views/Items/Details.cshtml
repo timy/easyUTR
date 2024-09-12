@@ -66,32 +66,38 @@
                 </tbody>
             </table>
 
-            <h3>You can get this @Model.Detail?.ItemName from the following stores:</h3>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Store Name</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var store in Model.ItemStores)
-                    {
+
+            @if (Model.ItemStores?.Count > 0) {
+                <h3>You can get this @Model.Detail?.ItemName from the following stores:</h3>
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td>@store.StoreName</td>
-                            <td>@store.Price</td>
-                            <td>
-                                <form asp-action="AddToCart" method="post">
-                                    <input type="hidden" name="ItemId" value="@Model.Detail?.ItemId" />
-                                    <label for="ItemQuantity">Quantity:</label>
-                                    <input type="number" id="ItemQuantity" name="ItemQuantity" value="1" step="1" min="1" max="20" />
-                                    <button class="btn btn-primary mb-3">Add to Cart</button>
-                                </form>
-                            </td>
+                            <th>Store Name</th>
+                            <th>Price</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var store in Model.ItemStores)
+                        {
+                            <tr>
+                                <td>@store.StoreName</td>
+                                <td>@store.Price</td>
+                                <td>
+                                    <form asp-action="AddToCart" method="post">
+                                        <input type="hidden" name="ItemId" value="@Model.Detail?.ItemId" />
+                                        <label for="ItemQuantity">Quantity:</label>
+                                        <input type="number" id="ItemQuantity" name="ItemQuantity" value="1" step="1" min="1" max="20" />
+                                        <button class="btn btn-primary mb-3">Add to Cart</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            } else
+            {
+                <h3>Sorry, this item is not available.</h3>
+            }
         </div>
         <div class="col-md-4">
             <h3>You might also like</h3>
