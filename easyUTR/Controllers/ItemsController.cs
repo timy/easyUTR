@@ -187,18 +187,37 @@ namespace easyUTR.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddToCart(int ItemId, int ItemQuantity)
+        public async Task<IActionResult> AddToCart(int storeId, int itemId, int itemQuantity)
         {
-            Item itemToAdd = _context.Items.Find(ItemId); // TODO: itemToAdd may be null here - redirect to out-of-stock message
+            Item? itemToAdd = _context.Items.Find(itemId); // TODO: itemToAdd may be null here
+            // TODO: storeToAdd may be null here
+            // TODO: check itemsInStore to see if the item is out of stock
+
+            var queryItemStore = from itemInStore in _context.ItemsInStores
+                                 where itemInStore.ItemId == itemId && itemInStore.StoreId == storeId
+                                 join store in _context.Stores
+                                 on itemInStore.StoreId equals store.StoreId
+                                 join address in _context.Addresses
+                                 on store.AddressId equals address.AddressId
+                                 select new ItemStoreDetailModel
+                                 {
+                                     StoreId = itemInStore.StoreId,
+                                     StoreName = store.StoreName,
+                                     StoreAddress = $"{address.AddressLine}, {address.Suburb}",
+                                     Price = itemInStore.Price,
+                                     NumberInStock = itemInStore.NumberInStock,
+                                 };
+
+            var itemStore = await queryItemStore.FirstOrDefaultAsync();
 
             // Retrieve cart items
             List<ShoppingCartItem> cartItems = HttpContext.Session.Get<List<ShoppingCartItem>>("Cart") ?? [];
             // Check if the item is already in the cart
-            var existingCartItem = cartItems.FirstOrDefault(i => i.Item.ItemId == ItemId);
+            var existingCartItem = cartItems.FirstOrDefault(i => i.Item?.ItemId == itemId && i.ItemStore?.StoreId == storeId);
             if (existingCartItem != null)
             {
                 // If already in the cart, only increase the quantity
-                existingCartItem.Quantity += ItemQuantity;
+                existingCartItem.Quantity += itemQuantity;
             }
             else
             {
@@ -206,7 +225,8 @@ namespace easyUTR.Controllers
                 cartItems.Add(new ShoppingCartItem
                 {
                     Item = itemToAdd,
-                    Quantity = ItemQuantity
+                    ItemStore = itemStore,
+                    Quantity = itemQuantity,
                 });
             }
             HttpContext.Session.Set("Cart", cartItems);
@@ -221,8 +241,8 @@ namespace easyUTR.Controllers
             var cartViewModel = new ShoppingCartViewModel
             {
                 CartItems = cartItems,
-                TotalQuantity = cartItems.Sum(i => i.Quantity)
-                // TODO: Total price need to be evaluated according to which store the customer buys it
+                TotalPrice = cartItems.Sum(i => i.Quantity * i.ItemStore.Price),
+                TotalQuantity = cartItems.Sum(i => i.Quantity),
             };
             return View(cartViewModel);
         }

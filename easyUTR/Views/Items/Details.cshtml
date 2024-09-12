@@ -74,6 +74,7 @@
                         <tr>
                             <th>Store Name</th>
                             <th>Price</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,7 +85,8 @@
                                 <td>@store.Price</td>
                                 <td>
                                     <form asp-action="AddToCart" method="post">
-                                        <input type="hidden" name="ItemId" value="@Model.Detail?.ItemId" />
+                                        <input type="hidden" name="storeId" value="@store.StoreId" />
+                                        <input type="hidden" name="itemId" value="@Model.Detail?.ItemId" />
                                         <label for="ItemQuantity">Quantity:</label>
                                         <input type="number" id="ItemQuantity" name="ItemQuantity" value="1" step="1" min="1" max="20" />
                                         <button class="btn btn-primary mb-3">Add to Cart</button>
