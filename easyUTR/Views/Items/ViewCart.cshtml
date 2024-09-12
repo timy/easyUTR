@@ -16,6 +16,9 @@
     You have @Model.TotalQuantity items in your cart.
 </div>
 
-<form method="post">
-    <button type="submit">Proceed to Checkout</button>
-</form>
+@if (Model.TotalQuantity > 0)
+{
+    <form method="post">
+        <button type="submit">Proceed to Checkout</button>
+    </form>
+}
