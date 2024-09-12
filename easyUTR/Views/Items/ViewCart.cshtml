@@ -52,10 +52,7 @@
                             </td>
                            
                             <td>
-                                <form asp-action="RemoveFromCart" method="post">
-                                    <input type="hidden" name="storeId" value="@item.ItemStore?.StoreId" />
-                                    <input type="hidden" name="itemId" value="@item.Item.ItemId" />
-                                    <input type="hidden" name="itemQuantity" value="@item.Quantity" />
+                                <form asp-action="RemoveFromCart" asp-route-storeId="@item.ItemStore?.StoreId" asp-route-itemid="@item.Item.ItemId" asp-route-itemQuantity="@item.Quantity" method="post">
                                     <button type="submit" class="btn btn-outline-danger btn-sm remove-item">
                                         <i class="bi bi-trash"></i>
                                     </button>
@@ -136,27 +133,6 @@
                 input.addEventListener('change', () => {
                     const newValue = Math.max(1, parseInt(input.value));
                     updateQuantity(input.dataset.itemId, newValue);
-                });
-            });
-
-            document.querySelectorAll('.remove-item').forEach(btn => {
-                btn.addEventListener('click', async () => {
-                    if (confirm('Are you sure you want to remove this item from your cart?')) {
-                        try {
-                            const response = await fetch(`/Cart/RemoveFromCart?itemId=${btn.dataset.itemId}`, {
-                                method: 'POST',
-                            });
-
-                            if (response.ok) {
-                                location.reload();
-                            } else {
-                                alert('Failed to remove item. Please try again.');
-                            }
-                        } catch (error) {
-                            console.error('Error:', error);
-                            alert('An error occurred. Please try again.');
-                        }
-                    }
                 });
             });
         });
