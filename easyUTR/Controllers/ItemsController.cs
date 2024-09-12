@@ -11,6 +11,10 @@ using easyUTR.ViewModels.Items;
 using Microsoft.Identity.Client;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using easyUTR.DetailModel;
+using easyUTR.ViewModels;
+
+using Microsoft.AspNetCore.Http;
+using System.Text.Json;
 
 namespace easyUTR.Controllers
 {
@@ -48,7 +52,8 @@ namespace easyUTR.Controllers
             // Prepare supplier list for dropdown
             var suppliers = await _context.Suppliers
                 .OrderBy(i => i.SupplierName)
-                .Select(i => new {
+                .Select(i => new
+                {
                     i.SupplierId,
                     i.SupplierName
                 })
@@ -191,7 +196,8 @@ namespace easyUTR.Controllers
             {
                 // If already in the cart, only increase the quantity
                 existingCartItem.Quantity += ItemQuantity;
-            } else
+            }
+            else
             {
                 // If not in the cart, create new cart item
                 cartItems.Add(new ShoppingCartItem
@@ -356,6 +362,80 @@ namespace easyUTR.Controllers
         private bool ItemExists(int id)
         {
             return _context.Items.Any(e => e.ItemId == id);
+        }
+
+        private ShoppingCartViewModel GetCart()
+        {
+            var cartItems = HttpContext.Session.Get<List<ShoppingCartItem>>("Cart") ?? new List<ShoppingCartItem>();
+            var cart = new ShoppingCartViewModel
+            {
+                CartItems = cartItems,
+                TotalQuantity = cartItems.Sum(i => i.Quantity),
+
+            };
+            return cart;
+        }
+
+        [HttpGet]
+        public IActionResult Checkout()
+        {
+            var cart = GetCart();
+            if (cart.CartItems.Count == 0)
+            {
+                TempData["Message"] = "Your cart is empty. Please add items before proceeding to checkout.";
+                return RedirectToAction("ViewCart");
+            }
+
+            var checkoutViewModel = new CheckoutViewModel
+            {
+                Cart = cart
+            };
+
+            return View(checkoutViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Checkout(CheckoutViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // Here you would typically:
+            // 1. Process the payment
+            // 2. Create an order in your database
+            // 3. Clear the cart
+
+            // For now, we'll just simulate a successful payment
+            var paymentResult = ProcessPayment(model);
+
+            if (paymentResult)
+            {
+                // Clear the cart
+                HttpContext.Session.Remove("Cart");
+
+                // Redirect to a thank you page
+                return RedirectToAction("ThankYou");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Payment processing failed. Please try again.");
+                return View(model);
+            }
+        }
+
+        public IActionResult ThankYou()
+        {
+            return View();
+        }
+
+        private bool ProcessPayment(CheckoutViewModel model)
+        {
+            // Simulate payment processing
+            // In a real application, you would integrate with a payment provider here
+            return true; // Always return true for now
         }
     }
 }
