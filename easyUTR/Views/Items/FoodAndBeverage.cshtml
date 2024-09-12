@@ -1,0 +1,42 @@
+﻿@model easyUTR.ViewModels.Items.ItemListViewModel
+@{
+    ViewData["Title"] = "Food & Beverage";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Food & Beverage</h1>
+
+    @foreach (var parentCategory in Model.ParentCategories)
+    {
+        if (Model.GroupedItems.TryGetValue(parentCategory.CategoryId, out var categoryItems) && categoryItems.Any())
+        {
+            <div class="category-section mb-5">
+                <h2 class="category-title mb-4">@parentCategory.CategoryName</h2>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    @foreach (var item in categoryItems)
+                    {
+                        <div class="col">
+                            <div class="card h-100 shadow-sm item-card" data-item-id="@item.ItemId">
+                                <div class="card-img-wrapper">
+                                    <img src="@item.ItemImage" class="card-img-top" alt="@item.ItemName">
+                                    <div class="card-img-overlay d-flex align-items-end">
+                                        <span class="badge bg-primary">@item.Category.CategoryName</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.ItemName</h5>
+                                    <p class="card-text item-description">@item.ItemDescription</p>
+                                    <p class="card-text"><small class="text-muted">Supplier: @item.Supplier.SupplierName</small></p>
+                                   
+                                </div>
+                                <div class="card-footer bg-transparent border-top-0">
+                                    <a href="@Url.Action("Details", new { id = item.ItemId })" class="btn btn-primary w-100">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+</div>

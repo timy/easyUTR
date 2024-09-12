@@ -1,54 +1,76 @@
 ﻿@model easyUTR.ViewModels.Items.ItemCreateViewModel
-
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Item";
 }
 
-<h1>Edit</h1>
+<div class="container my-5">
+    <h1 class="mb-4">Edit Item</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Item.ItemId" />
 
-<h4>Item</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Item.ItemId" />
-            <div class="form-group">
-                <label asp-for="Item.ItemName" class="control-label">Item Name</label>
-                <input asp-for="Item.ItemName" class="form-control" />
-                <span asp-validation-for="Item.ItemName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ItemDescription" class="control-label">Description</label>
-                <input asp-for="Item.ItemDescription" class="form-control" />
-                <span asp-validation-for="Item.ItemDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ItemImage" class="control-label">Image URL</label>
-                <input asp-for="Item.ItemImage" class="form-control" />
-                <span asp-validation-for="Item.ItemImage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.CategoryId" class="control-label">Category</label>
-                <select asp-for="Item.CategoryId" class="form-control" asp-items="Model.CategoryList"></select>
-                <span asp-validation-for="Item.CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.SupplierId" class="control-label">Supplier</label>
-                <select asp-for="Item.SupplierId" class="form-control" asp-items="Model.SupplierList"></select>
-                <span asp-validation-for="Item.SupplierId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="mb-3">
+                    <label asp-for="Item.ItemName" class="form-label">Item Name</label>
+                    <input asp-for="Item.ItemName" class="form-control" />
+                    <span asp-validation-for="Item.ItemName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Item.ItemDescription" class="form-label">Description</label>
+                    <textarea asp-for="Item.ItemDescription" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Item.ItemDescription" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Item.CategoryId" class="form-label">Category</label>
+                    <select asp-for="Item.CategoryId" class="form-select" asp-items="Model.CategoryList"></select>
+                    <span asp-validation-for="Item.CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Item.SupplierId" class="form-label">Supplier</label>
+                    <select asp-for="Item.SupplierId" class="form-select" asp-items="Model.SupplierList"></select>
+                    <span asp-validation-for="Item.SupplierId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Current Image</label>
+                    <img src="@Model.Item.ItemImage" alt="Current Item Image" class="img-thumbnail mb-2" style="max-width: 200px;" id="currentImage" />
+                    <input type="hidden" asp-for="Item.ItemImage" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Upload New Image</label>
+                    <input type="file" class="form-control" name="ImageFile" id="imageUpload" accept="image/*" />
+                </div>
+
+                <div class="mb-3">
+                    <input type="submit" value="Save Changes" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.getElementById('imageUpload').onchange = function (evt) {
+            var tgt = evt.target || window.event.srcElement,
+                files = tgt.files;
+
+            if (FileReader && files && files.length) {
+                var fr = new FileReader();
+                fr.onload = function () {
+                    document.getElementById('currentImage').src = fr.result;
+                }
+                fr.readAsDataURL(files[0]);
+            }
+        }
+    </script>
 }

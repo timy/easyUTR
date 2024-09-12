@@ -15,16 +15,19 @@ using easyUTR.ViewModels;
 
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using Microsoft.Extensions.Hosting;
 
 namespace easyUTR.Controllers
 {
     public class ItemsController : Controller
     {
         private readonly EasyUtrContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public ItemsController(EasyUtrContext context)
+        public ItemsController(EasyUtrContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _hostEnvironment = hostEnvironment;
         }
 
         public async Task<IActionResult> Index(ItemSearchViewModel vm)
@@ -286,9 +289,9 @@ namespace easyUTR.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ItemId,ItemName,ItemDescription,ItemImage,CategoryId,SupplierId")] Item item)
+        public async Task<IActionResult> Edit(int id, ItemCreateViewModel model, IFormFile ImageFile)
         {
-            if (id != item.ItemId)
+            if (id != model.Item.ItemId)
             {
                 return NotFound();
             }
@@ -297,12 +300,26 @@ namespace easyUTR.Controllers
             {
                 try
                 {
-                    _context.Update(item);
+                    if (ImageFile != null && ImageFile.Length > 0)
+                    {
+                        var uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "images", "items");
+                        var uniqueFileName = Guid.NewGuid().ToString() + "_" + ImageFile.FileName;
+                        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await ImageFile.CopyToAsync(fileStream);
+                        }
+
+                        model.Item.ItemImage = "/images/items/" + uniqueFileName;
+                    }
+
+                    _context.Update(model.Item);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ItemExists(item.ItemId))
+                    if (!ItemExists(model.Item.ItemId))
                     {
                         return NotFound();
                     }
@@ -314,14 +331,9 @@ namespace easyUTR.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ItemCreateViewModel vm = new ItemCreateViewModel
-            {
-                Item = item,
-                SupplierList = new SelectList(_context.Suppliers, "SupplierId", "SupplierName", item.SupplierId),
-                CategoryList = new SelectList(_context.ItemCategories, "CategoryId", "CategoryName", item.CategoryId)
-            };
-
-            return View(vm);
+            model.CategoryList = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(_context.ItemCategories, "CategoryId", "CategoryName", model.Item.CategoryId);
+            model.SupplierList = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(_context.Suppliers, "SupplierId", "SupplierName", model.Item.SupplierId);
+            return View(model);
         }
 
         // GET: Items/Delete/5
@@ -436,6 +448,19 @@ namespace easyUTR.Controllers
             // Simulate payment processing
             // In a real application, you would integrate with a payment provider here
             return true; // Always return true for now
+        }
+
+        public async Task<IActionResult> FoodAndBeverage()
+        {
+
+            return View();
+        }
+
+        public async Task<IActionResult> Fuel()
+        {
+
+
+            return View();
         }
     }
 }
