@@ -13,7 +13,7 @@
         <form asp-action="EditStoreItem" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" name="storeId" value="@Model.StoreId" />
-            <input type="hidden" name="itemId" value="@Model.Item.Detail.ItemID" />
+            <input type="hidden" name="itemId" value="@Model.Item.Detail.ItemId" />
             <div class="form-group">
                 <label asp-for="Item.Detail.ItemName" class="control-label">Item Name</label>
                 <input asp-for="Item.Detail.ItemName" class="form-control" disabled />

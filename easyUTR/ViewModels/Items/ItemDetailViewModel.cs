@@ -1,10 +1,13 @@
-﻿using easyUTR.Models;
+﻿using easyUTR.DetailModel;
+using easyUTR.Models;
 
 namespace easyUTR.ViewModels.Items
 {
     public class ItemDetailViewModel
     {
-        public Item Item { get; set; }
-        public List<Item> RelatedItems { get; set; }
+        public ItemDetailModel? Detail { get; set; }
+        public List<ItemBriefModel>? RelatedItems { get; set; }
+        public List<ItemStoreDetailModel>? ItemStores { get; set; }
+
     }
 }

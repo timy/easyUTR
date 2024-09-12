@@ -76,7 +76,7 @@ namespace easyUTR.Controllers
                     on item.SupplierId equals supplier.SupplierId
                     select new StoreItemDetailModel {
                         Detail = new ItemDetailModel {
-                            ItemID = item.ItemId,
+                            ItemId = item.ItemId,
                             ItemName = item.ItemName,
                             ItemDescription = item.ItemDescription,
                             ItemImage = item.ItemImage ?? string.Empty,
@@ -280,7 +280,7 @@ namespace easyUTR.Controllers
                         {
                             Detail = new ItemDetailModel
                             {
-                                ItemID = item.ItemId,
+                                ItemId = item.ItemId,
                                 ItemName = item.ItemName,
                                 ItemDescription = item.ItemDescription,
                                 ItemImage = item.ItemImage ?? string.Empty,

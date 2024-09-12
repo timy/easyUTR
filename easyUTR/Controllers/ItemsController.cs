@@ -10,6 +10,7 @@ using easyUTR.Models;
 using easyUTR.ViewModels.Items;
 using Microsoft.Identity.Client;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using easyUTR.DetailModel;
 
 namespace easyUTR.Controllers
 {
@@ -111,28 +112,66 @@ namespace easyUTR.Controllers
                 return NotFound();
             }
 
-            var item = await _context.Items
-                .Include(i => i.Category)
-                .Include(i => i.Supplier)
-                .FirstOrDefaultAsync(m => m.ItemId == id);
-            if (item == null)
-            {
-                return NotFound();
-            }
+            var queryItem = from item in _context.Items
+                            where item.ItemId == id
+                            join category in _context.ItemCategories
+                            on item.CategoryId equals category.CategoryId
+                            join supplier in _context.Suppliers
+                            on item.SupplierId equals supplier.SupplierId
+                            select new
+                            {
+                                Detail = new ItemDetailModel
+                                {
+                                    ItemId = item.ItemId,
+                                    ItemName = item.ItemName,
+                                    ItemDescription = item.ItemDescription,
+                                    ItemImage = item.ItemImage ?? string.Empty,
+                                    CategoryId = category.CategoryId,
+                                    CategoryName = category.CategoryName,
+                                    ParentCategoryId = category.ParentCategoryId,
+                                    ParentCategoryName = category.ParentCategoryId.HasValue ? (
+                                 from c in _context.ItemCategories
+                                 where c.CategoryId == category.ParentCategoryId
+                                 select c.CategoryName).ToString() : null,
+                                    SupplierId = supplier.SupplierId,
+                                    SupplierName = supplier.SupplierName,
+                                    SupplierDescription = supplier.SupplierDescription,
+                                    SupplierUrl = supplier.SupplierUrl
+                                },
+                                RelatedItems = (from i in _context.Items
+                                                where i.Category.ParentCategoryId == category.ParentCategoryId
+                                                select new ItemBriefModel
+                                                {
+                                                    ItemId = i.ItemId,
+                                                    ItemName = i.ItemName,
+                                                    ItemDescription = i.ItemDescription,
+                                                    ItemImage = i.ItemImage
+                                                }).Take(3).ToList(),
+                            };
 
-            //return View(item);
-            // Fetch related items from the same parent category
-            var relatedItems = await _context.Items
-                .Include(i => i.Category)
-                .Where(i => i.Category.ParentCategoryId == item.Category.ParentCategoryId
-                            && i.ItemId != item.ItemId)
-                .Take(3)  // Limit to 3 related items
-                .ToListAsync();
+            var queryStoreInfo = from itemsInStore in _context.ItemsInStores
+                                 join item in queryItem
+                                 on itemsInStore.ItemId equals item.Detail.ItemId
+                                 join store in _context.Stores
+                                 on itemsInStore.StoreId equals store.StoreId
+                                 join address in _context.Addresses
+                                 on store.AddressId equals address.AddressId
+                                 select new ItemStoreDetailModel
+                                 {
+                                     StoreId = store.StoreId,
+                                     StoreName = store.StoreName,
+                                     StoreAddress = $"{store.Address.AddressLine}, {store.Address.Suburb}",
+                                     Price = itemsInStore.Price,
+                                     NumberInStock = itemsInStore.NumberInStock,
+                                 };
 
+            var itemInfo = await queryItem.FirstOrDefaultAsync();
+            var storeInfo = await queryStoreInfo.ToListAsync();
             var viewModel = new ItemDetailViewModel
             {
-                Item = item,
-                RelatedItems = relatedItems
+                Detail = itemInfo?.Detail,
+                RelatedItems = itemInfo?.RelatedItems,
+                ItemStores = storeInfo,
             };
 
             return View(viewModel);

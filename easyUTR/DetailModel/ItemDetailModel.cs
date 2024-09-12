@@ -2,7 +2,7 @@
 {
     public class ItemDetailModel
     {
-        public int ItemID { get; set; }
+        public int ItemId { get; set; }
         public string ItemName { get; set; } = string.Empty;
         public string? ItemDescription { get; set; }
         public string ItemImage { get; set; } = string.Empty;
