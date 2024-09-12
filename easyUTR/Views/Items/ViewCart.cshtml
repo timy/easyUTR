@@ -6,12 +6,33 @@
 
 <h2>Shopping Cart</h2>
 
-@foreach(var items in Model.CartItems)
-{
-    <div>
-        @items.Item.ItemName - @items.Quantity pcs
-    </div>
-}
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.CartItems[0].Item.ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.CartItems[0].Quantity)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var items in Model.CartItems)
+        {
+            <tr>
+                <td>
+                    @items.Item.ItemName
+                </td>
+                <td>
+                    @items.Quantity
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 <div>
     You have @Model.TotalQuantity items in your cart.
 </div>
