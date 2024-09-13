@@ -13,5 +13,7 @@ namespace easyUTR.ViewModels.Items
         public SelectList CategoryList { get; set; }
         public int? SupplierId { get; set; }
         public SelectList SupplierList { get; set; }
+        public int? StoreId { get; set; }
+        public SelectList StoreList { get; set; }
     }
 }

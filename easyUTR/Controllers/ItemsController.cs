@@ -36,7 +36,7 @@ namespace easyUTR.Controllers
             StripeConfiguration.ApiKey = _stripeSettings.SecretKey;
         }
 
-        public async Task<IActionResult> Index(ItemSearchViewModel vm)
+        public async Task<IActionResult> Index(ItemListViewModel vm)
         {
             // Query parent categories
             var parentCategories = await _context.ItemCategories
@@ -71,6 +71,19 @@ namespace easyUTR.Controllers
                 nameof(Supplier.SupplierId),
                 nameof(Supplier.SupplierName));
 
+            // Prepare store list for dropdown
+            var stores = await _context.Stores
+                .OrderBy(i => i.StoreName)
+                .Select(i => new
+                {
+                    i.StoreId,
+                    i.StoreName,
+                })
+                .ToListAsync();
+            vm.StoreList = new SelectList(stores,
+                nameof(Store.StoreId),
+                nameof(Store.StoreName));
+
             // Retrieve all items
             var query = _context.Items
                 .Include(i => i.Category)
@@ -78,15 +91,15 @@ namespace easyUTR.Controllers
                 .AsQueryable();
 
             // Filter by category
-            if (vm.CategoryID != null)
+            if (vm.CategoryId != null)
             {
-                query = query.Where(i => i.Category.ParentCategoryId == vm.CategoryID || i.CategoryId == vm.CategoryID);
+                query = query.Where(i => i.Category.ParentCategoryId == vm.CategoryId || i.CategoryId == vm.CategoryId);
             }
 
             // Filter by supplier
-            if (vm.SupplierID != null)
+            if (vm.SupplierId != null)
             {
-                query = query.Where(i => i.SupplierId == vm.SupplierID);
+                query = query.Where(i => i.SupplierId == vm.SupplierId);
             }
 
             // Filter by item name
@@ -138,21 +151,9 @@ namespace easyUTR.Controllers
                 .GroupBy(i => i.Detail.ParentCategoryId ?? i.Detail.CategoryId)
                 .ToDictionary(g => g.Key, g => g.ToList());
 
-
-
-
-            var viewModel = new ItemListViewModel
-            {
-                ParentCategories = parentCategories,
-                GroupedItems = groupedItems,
-                SearchText = vm.SearchText,
-                CategoryId = vm.CategoryID,
-                CategoryList = vm.CategoryList,
-                SupplierId = vm.SupplierID,
-                SupplierList = vm.SupplierList
-            };
-
-            return View(viewModel);
+            vm.ParentCategories = parentCategories;
+            vm.GroupedItems = groupedItems;
+            return View(vm);
         }
 
         // GET: Items/Details/5
