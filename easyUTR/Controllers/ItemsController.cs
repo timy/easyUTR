@@ -113,19 +113,26 @@ namespace easyUTR.Controllers
                                       SupplierUrl = item.Supplier.SupplierUrl
                                   };
 
-            var items = await queryItemDetail.ToListAsync();
+
+            var queryItemStat = from itemDetail in queryItemDetail
+                                join itemInStore in _context.ItemsInStores
+                                on itemDetail.ItemId equals itemInStore.ItemId into g
+                                select new ItemStatDetailModel
+                                {
+                                    Detail = itemDetail,
+                                    MinPrice = g.Min(i => i.Price),
+                                    MaxPrice = g.Max(i => i.Price),
+                                    StoreNumber = g.Count()
+                                };
+
+            var items = await queryItemStat.ToListAsync();
 
             // Group items by parent category
             var groupedItems = items
-                .GroupBy(i => i.ParentCategoryId ?? i.CategoryId)
+                .GroupBy(i => i.Detail.ParentCategoryId ?? i.Detail.CategoryId)
                 .ToDictionary(g => g.Key, g => g.ToList());
 
-            /*
-            var itemStat = new ItemStatDetailModel
-            {
-                Detail = 
-            };
-            */
+
 
 
             var viewModel = new ItemListViewModel

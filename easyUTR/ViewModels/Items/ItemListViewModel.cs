@@ -7,7 +7,7 @@ namespace easyUTR.ViewModels.Items
     public class ItemListViewModel
     {
         public List<ItemCategory> ParentCategories { get; set; }
-        public Dictionary<int, List<ItemDetailModel>> GroupedItems { get; set; }
+        public Dictionary<int, List<ItemStatDetailModel>> GroupedItems { get; set; }
         public string? SearchText { get; set; }
         public int? CategoryId { get; set; }
         public SelectList CategoryList { get; set; }
