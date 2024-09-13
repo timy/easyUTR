@@ -23,15 +23,6 @@
                 <span class="badge bg-primary">@Model.Detail?.CategoryName</span>
                 <span class="badge bg-secondary">@Model.Detail?.SupplierName</span>
             </div>
-            <div class="mb-4">
-                <h2 class="text-primary">$9.99</h2> <!-- Placeholder price, replace with actual price when available -->
-            </div>
-            <form asp-action="AddToCart" method="post">
-                <input type="hidden" name="ItemId" value="@Model.Detail?.ItemId" />
-                <label for="ItemQuantity">Quantity:</label>
-                <input type="number" id="ItemQuantity" name="ItemQuantity" value="1" step="1" min="1" max="20" />
-                <button class="btn btn-primary btn-lg mb-3">Add to Cart</button>
-            </form>
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <a asp-action="Edit" asp-route-id="@Model.Detail?.ItemId" class="btn btn-outline-secondary">Edit</a>
