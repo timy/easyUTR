@@ -9,6 +9,31 @@
 
 The design of the database can be found in UML file [doc/database/database-design.uxf](doc/database/database-design.uxf), which can be viewed using [UMLet](https://www.umlet.com/).
 
+## Configuration file `appsettings.json`
+
+In order to protect sensitive data in the configuration file, we remove `appsettings.json` from the respository. You should create your own `appsettings.json` using the following template.
+
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "EasyUtrContext": "Data Source=XXXXXXXXXXX;Initial Catalog=EasyUTR;...etc for your own connection string"
+  },
+  "Stripe": {
+    "SecretKey": "sk_test_YOUR_SECRET_KEY",
+    "PublicKey": "pk_test_YOUR_PUBLIC_KEY"
+  }
+}
+```
+
 ## Run the project
 
 Open [easyUTR/appsettings.json](easyUTR/appsettings.json), and **modify database connection string of `ConnectionStrings` -> `EasyUtrContext` to match the database built in your own local environment**.
+
+
