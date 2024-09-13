@@ -312,6 +312,7 @@ namespace easyUTR.Controllers
                 CartItems = cartItems,
                 TotalPrice = cartItems.Sum(i => i.Quantity * i.ItemStore.Price),
                 TotalQuantity = cartItems.Sum(i => i.Quantity),
+                paymentPublicKey = _stripeSettings.PublicKey,
             };
             return View(cartViewModel);
         }

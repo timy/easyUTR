@@ -1,4 +1,5 @@
 ﻿using easyUTR.Models;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace easyUTR.ViewModels.Items
 {
@@ -12,5 +13,7 @@ namespace easyUTR.ViewModels.Items
         {
             CartItems = new List<ShoppingCartItem>();
         }
+
+        public string? paymentPublicKey { get; set; } = string.Empty;
     }
 }

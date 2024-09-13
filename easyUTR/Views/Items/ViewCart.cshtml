@@ -78,11 +78,11 @@
             <a asp-controller="Items" asp-action="Index" class="btn btn-outline-primary">
                 <i class="bi bi-arrow-left me-2"></i>Continue Shopping
             </a>
-            <form asp-action="CreateCheckoutSession" method="post">
-                <button type="submit" class="btn btn-success">
-                    <i class="bi bi-credit-card me-2"></i>Proceed to Checkout
-                </button>
-            </form>
+
+            <button type="submit" class="btn btn-success" id="checkoutBtn">
+                <i class="bi bi-credit-card me-2"></i>Proceed to Checkout
+            </button>
+
         </div>
     }
     else
@@ -92,3 +92,27 @@
         </div>
     }
 </div>
+
+@section Scripts {
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var checkoutBtn = document.getElementById('checkoutBtn');
+        var stripe = Stripe('@Model.paymentPublicKey');
+
+        checkoutBtn.addEventListener('click', () => {
+            fetch('/Items/CreateCheckoutSession', { // TODO: reorganise the project
+                method: 'POST'
+            }).then(res => {
+                return res.json();
+            }).then(session => {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            }).then(result => {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            }).catch(error => {
+                console.error('Error: ', error);
+            });
+        });
+    </script>
+}
