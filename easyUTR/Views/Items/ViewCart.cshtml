@@ -78,10 +78,10 @@
             <a asp-controller="Items" asp-action="Index" class="btn btn-outline-primary">
                 <i class="bi bi-arrow-left me-2"></i>Continue Shopping
             </a>
-            <form asp-action="Checkout" method="post">
-                <a asp-action="Checkout" class="btn btn-success">
+            <form asp-controller="Payments" asp-action="CreateCheckoutSession" method="post">
+                <button type="submit" class="btn btn-success">
                     <i class="bi bi-credit-card me-2"></i>Proceed to Checkout
-                </a>
+                </button>
             </form>
         </div>
     }
