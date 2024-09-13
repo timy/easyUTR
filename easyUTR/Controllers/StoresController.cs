@@ -97,18 +97,18 @@ namespace easyUTR.Controllers
                     };
 
             // Filter by category
-            if (vm.CategoryID.HasValue)
+            if (vm.CategoryId.HasValue)
             {
                 query = from record in query
-                    where record.Detail.ParentCategoryId == vm.CategoryID || record.Detail.CategoryId == vm.CategoryID
+                    where record.Detail.ParentCategoryId == vm.CategoryId || record.Detail.CategoryId == vm.CategoryId
                     select record;
             }
 
             // Filter by supplier
-            if (vm.SupplierID.HasValue)
+            if (vm.SupplierId.HasValue)
             {
                 query = from record in query
-                    where record.Detail.SupplierId == vm.SupplierID
+                    where record.Detail.SupplierId == vm.SupplierId
                     select record;
             }
 

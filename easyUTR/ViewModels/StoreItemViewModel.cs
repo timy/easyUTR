@@ -10,9 +10,9 @@ namespace easyUTR.ViewModels
         // public Dictionary<int, List<StoreItemDetailModel>> GroupedItems { get; set; }
         public StoreInventoryDetailModel Store { get; set; } = new StoreInventoryDetailModel();
         public string? SearchText { get; set; }
-        public int? CategoryID { get; set; }
+        public int? CategoryId { get; set; }
         public SelectList CategoryList { get; set; }
-        public int? SupplierID { get; set; }
+        public int? SupplierId { get; set; }
         public SelectList SupplierList { get; set; }
     }
 }

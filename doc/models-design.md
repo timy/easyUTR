@@ -12,12 +12,12 @@ supplierId, supplierName, supplierDescription, supplierUrl)
 (ItemDetailModel detail, price, numberInStock)
 
 "StoreInventoryDetailModel" :=
-(storeID, storeName, storeAddress, storeDescription, storeImage, 
+(storeId, storeName, storeAddress, storeDescription, storeImage,
 Dictionary<int, List<StoreItemDetailModel>> items)
 
 "StoreItemViewModel" :=
 (StoreInventoryDetailModel store, 
-searchText, categoryID, categoryList, supplierID, supplierList)
+searchText, categoryId, categoryList, supplierId, supplierList)
 
 
 ## Required models from Views
