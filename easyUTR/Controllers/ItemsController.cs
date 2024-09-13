@@ -318,35 +318,54 @@ namespace easyUTR.Controllers
 
 
         [HttpPost]
-        public ActionResult CreateCheckoutSession(ShoppingCartViewModel vm)
+        public async Task<IActionResult> CreateCheckoutSession(ShoppingCartViewModel vm)
         {
+            var cartItems = HttpContext.Session.Get<List<ShoppingCartItem>>("Cart") ?? [];
             var options = new SessionCreateOptions
             {
-                LineItems = new List<SessionLineItemOptions>
+                LineItems = cartItems.Select(cartItem => new SessionLineItemOptions
                 {
-                    new SessionLineItemOptions
-                    {
-                        PriceData = new SessionLineItemPriceDataOptions
+                    PriceData = new SessionLineItemPriceDataOptions {
+                        UnitAmount = Convert.ToInt32(cartItem.ItemStore.Price * 100),
+                        Currency = "aud",
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
-                            UnitAmount = 2000, // TODO: price
-                            Currency = "aud",
-                            ProductData = new SessionLineItemPriceDataProductDataOptions
-                            {
-                                Name = "T-shirt", // TODO: itemName
-                            },
+                            Name = cartItem.Item.ItemName,
                         },
-                        Quantity = 1, // TODO
                     },
-                },
+                    Quantity = cartItem.Quantity,
+                }).ToList(),
                 Mode = "payment",
-                SuccessUrl = "",  // TODO
-                CancelUrl = "",   // TODO
+                SuccessUrl = Url.Action("PaySuccess", "Items", null, Request.Scheme),
+                CancelUrl = Url.Action("PayFailed", "Items", null, Request.Scheme),
             };
 
-            var service = new SessionService();
-            Session session = service.Create(options);
-            Response.Headers.Add("Location", session.Url);
-            return new StatusCodeResult(300);
+            try
+            {
+                var service = new SessionService();
+                Session session = await service.CreateAsync(options);
+                return Json(new { id = session.Id });
+            }
+            catch (Stripe.StripeException e)
+            {
+                return BadRequest(new { error = e.Message });
+            }
+
+            //Response.Headers.Add("Location", session.Url);
+            //return new StatusCodeResult(300);
+        }
+
+
+        public IActionResult PaySuccess()
+        {
+            var cartItems = HttpContext.Session.Get<List<ShoppingCartItem>>("Cart") ?? [];
+            // TODO: transaction record
+            return View();
+        }
+
+        public IActionResult PayFailed()
+        {
+            return View();
         }
 
 
