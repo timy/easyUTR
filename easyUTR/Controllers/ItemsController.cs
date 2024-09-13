@@ -104,9 +104,9 @@ namespace easyUTR.Controllers
                 ParentCategories = parentCategories,
                 GroupedItems = groupedItems,
                 SearchText = vm.SearchText,
-                CategoryID = vm.CategoryID,
+                CategoryId = vm.CategoryID,
                 CategoryList = vm.CategoryList,
-                SupplierID = vm.SupplierID,
+                SupplierId = vm.SupplierID,
                 SupplierList = vm.SupplierList
             };
 

@@ -1,23 +1,25 @@
 ## Definition of customerised Models
 
-"ItemBriefModel" :=
-(ItemId, ItemName, )
+### ItemBriefModel
+`ItemId, ItemName, ItemDescription, ItemImage`
 
-"ItemDetailModel" :=
-(itemId, itemName, itemDescription, itemImage, 
-categoryId, categoryName, parentCategoryId, parentCategoryName,
-supplierId, supplierName, supplierDescription, supplierUrl)
+### ItemDetailModel
+`ItemId, ItemName, ItemDescription, ItemImage, CategoryId, CategoryName, ParentCategoryId, ParentCategoryName, SupplierId, SupplierName, SupplierDescription, SupplierUrl`
 
-"StoreItemDetailModel" :=
-(ItemDetailModel detail, price, numberInStock)
+### ItemStoreDetailModel
+`StoreId, StoreName, StoreAddress, Price, NumberInStock`
 
-"StoreInventoryDetailModel" :=
-(storeId, storeName, storeAddress, storeDescription, storeImage,
-Dictionary<int, List<StoreItemDetailModel>> items)
+### StoreItemDetailModel
+`Detail:ItemDetailModel, Price, NumberInStock`
 
-"StoreItemViewModel" :=
-(StoreInventoryDetailModel store, 
-searchText, categoryId, categoryList, supplierId, supplierList)
+### StoreInventoryDetailModel
+`StoreId, StoreName, StoreAddress, StoreDescription, StoreImage, Items:Dictionary<int, List<StoreItemDetailModel>>`
+
+### StoreItemViewModel
+`ParentCategories:List<ItemCategory>, Store:StoreInventoryDetailModel, SearchText, CategoryId, CategoryList, SupplierId, SupplierList`
+
+### ItemListViewModel
+`ParentCategories:List<ItemCategory>, GroupedItems:Dictionary<int, List<Item>>, SearchText, CategoryId, CategoryList, SupplierId, SupplierList`
 
 
 ## Required models from Views
