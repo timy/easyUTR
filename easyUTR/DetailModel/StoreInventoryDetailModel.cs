@@ -2,7 +2,7 @@
 {
     public class StoreInventoryDetailModel
     {
-        public int StoreID { get; set; }
+        public int StoreId { get; set; }
         public string StoreName { get; set; } = string.Empty;
         public string StoreAddress {  get; set; } = string.Empty;
         public string StoreDescription { get; set; } = string.Empty;

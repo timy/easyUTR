@@ -126,7 +126,7 @@ namespace easyUTR.Controllers
                 .ToDictionaryAsync(g => g.Key, g => g.ToList());
 
             vm.ParentCategories = parentCategories;
-            vm.Store.StoreID = storeId;
+            vm.Store.StoreId = storeId;
             vm.Store.StoreName = store.StoreName;
             vm.Store.StoreAddress = $"{store.Address.AddressLine}, {store.Address.Suburb}";
             vm.Store.StoreDescription = store.StoreDescription;

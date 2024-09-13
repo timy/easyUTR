@@ -1,9 +1,12 @@
 ## Definition of customerised Models
 
+"ItemBriefModel" :=
+(ItemId, ItemName, )
+
 "ItemDetailModel" :=
-(itemID, itemName, itemDescription, itemImage, 
-categoryID, categoryName, parentCategoryID, parentCategoryName,
-supplierID, supplierName, supplierDescription, supplierUrl)
+(itemId, itemName, itemDescription, itemImage, 
+categoryId, categoryName, parentCategoryId, parentCategoryName,
+supplierId, supplierName, supplierDescription, supplierUrl)
 
 "StoreItemDetailModel" :=
 (ItemDetailModel detail, price, numberInStock)
