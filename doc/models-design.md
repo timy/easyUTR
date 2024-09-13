@@ -9,6 +9,9 @@
 ### ItemStoreDetailModel
 `StoreId, StoreName, StoreAddress, Price, NumberInStock`
 
+### ItemStatDetailModel
+`Detail:ItemDetailModel, MaxPrice, MinPrice, StoreNumber`
+
 ### StoreItemDetailModel
 `Detail:ItemDetailModel, Price, NumberInStock`
 

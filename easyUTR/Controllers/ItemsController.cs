@@ -92,12 +92,41 @@ namespace easyUTR.Controllers
             // Sort by item name
             query = query.OrderBy(i => i.ItemName);
 
-            var items = await query.ToListAsync();
+
+            var queryItemDetail = from item in query
+                                  select new ItemDetailModel
+                                  {
+                                      ItemId = item.ItemId,
+                                      ItemName = item.ItemName,
+                                      ItemDescription = item.ItemDescription,
+                                      ItemImage = item.ItemImage ?? string.Empty,
+                                      CategoryId = item.Category.CategoryId,
+                                      CategoryName = item.Category.CategoryName,
+                                      ParentCategoryId = item.Category.ParentCategoryId,
+                                      ParentCategoryName = item.Category.ParentCategoryId.HasValue ? (
+                                               from c in _context.ItemCategories
+                                               where c.CategoryId == item.Category.ParentCategoryId
+                                               select c.CategoryName).ToString() : null,
+                                      SupplierId = item.Supplier.SupplierId,
+                                      SupplierName = item.Supplier.SupplierName,
+                                      SupplierDescription = item.Supplier.SupplierDescription,
+                                      SupplierUrl = item.Supplier.SupplierUrl
+                                  };
+
+            var items = await queryItemDetail.ToListAsync();
 
             // Group items by parent category
             var groupedItems = items
-                .GroupBy(i => i.Category.ParentCategoryId ?? i.CategoryId)
+                .GroupBy(i => i.ParentCategoryId ?? i.CategoryId)
                 .ToDictionary(g => g.Key, g => g.ToList());
+
+            /*
+            var itemStat = new ItemStatDetailModel
+            {
+                Detail = 
+            };
+            */
+
 
             var viewModel = new ItemListViewModel
             {
