@@ -16,6 +16,9 @@ using easyUTR.ViewModels;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using Microsoft.Extensions.Hosting;
+using Stripe.Checkout;
+using Microsoft.Extensions.Options;
+using Stripe;
 
 namespace easyUTR.Controllers
 {
@@ -23,11 +26,14 @@ namespace easyUTR.Controllers
     {
         private readonly EasyUtrContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private StripeSettings _stripeSettings;
 
-        public ItemsController(EasyUtrContext context, IWebHostEnvironment hostEnvironment)
+        public ItemsController(EasyUtrContext context, IWebHostEnvironment hostEnvironment, IOptions<StripeSettings> stripeSettings)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
+            _stripeSettings = stripeSettings.Value;
+            StripeConfiguration.ApiKey = _stripeSettings.SecretKey;
         }
 
         public async Task<IActionResult> Index(ItemSearchViewModel vm)
@@ -309,6 +315,41 @@ namespace easyUTR.Controllers
             };
             return View(cartViewModel);
         }
+
+
+        [HttpPost]
+        public ActionResult CreateCheckoutSession(ShoppingCartViewModel vm)
+        {
+            var options = new SessionCreateOptions
+            {
+                LineItems = new List<SessionLineItemOptions>
+                {
+                    new SessionLineItemOptions
+                    {
+                        PriceData = new SessionLineItemPriceDataOptions
+                        {
+                            UnitAmount = 2000, // TODO: price
+                            Currency = "aud",
+                            ProductData = new SessionLineItemPriceDataProductDataOptions
+                            {
+                                Name = "T-shirt", // TODO: itemName
+                            },
+                        },
+                        Quantity = 1, // TODO
+                    },
+                },
+                Mode = "payment",
+                SuccessUrl = "",  // TODO
+                CancelUrl = "",   // TODO
+            };
+
+            var service = new SessionService();
+            Session session = service.Create(options);
+            Response.Headers.Add("Location", session.Url);
+            return new StatusCodeResult(300);
+        }
+
+
 
         // GET: Items/Create
         public IActionResult Create()
