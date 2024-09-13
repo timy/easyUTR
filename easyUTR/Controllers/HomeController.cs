@@ -23,6 +23,11 @@ namespace easyUTR.Controllers
             return View();
         }
 
+        public IActionResult RewardIntro()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

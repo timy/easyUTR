@@ -91,13 +91,13 @@ namespace easyUTR.Controllers
                 .AsQueryable();
 
             // Filter by category
-            if (vm.CategoryId != null)
+            if (vm.CategoryId.HasValue)
             {
                 query = query.Where(i => i.Category.ParentCategoryId == vm.CategoryId || i.CategoryId == vm.CategoryId);
             }
 
             // Filter by supplier
-            if (vm.SupplierId != null)
+            if (vm.SupplierId.HasValue)
             {
                 query = query.Where(i => i.SupplierId == vm.SupplierId);
             }
