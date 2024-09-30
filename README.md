@@ -32,6 +32,11 @@ In order to protect sensitive data in the configuration file, we remove `appsett
 }
 ```
 
+## Update the database
+
+Open "Tools" -> "Nuget Package Manager" -> "Package Manager Console" (PMC), run `Update-Database` to update your existing database to synchronise with Models in the code.
+
+
 ## Run the project
 
 Open [easyUTR/appsettings.json](easyUTR/appsettings.json), and **modify database connection string of `ConnectionStrings` -> `EasyUtrContext` to match the database built in your own local environment**.
