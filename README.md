@@ -34,7 +34,7 @@ In order to protect sensitive data in the configuration file, we remove `appsett
 
 ## Update the database
 
-Open "Tools" -> "Nuget Package Manager" -> "Package Manager Console" (PMC), run `Update-Database` to update your existing database to synchronise with Models in the code.
+Open "Tools" -> "Nuget Package Manager" -> "Package Manager Console" (PMC), run `Update-Database -Context EasyUtrIdentityContext` to update your existing database to synchronise with Models in the code.
 
 
 ## Run the project
