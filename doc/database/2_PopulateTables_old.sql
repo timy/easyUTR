@@ -1,3 +1,36 @@
+/****** Customers ******/
+
+INSERT INTO Customers (customerID, firstName, lastName, email, phoneNumber)
+VALUES (1, 'James', 'Brown', 'james.brown@gmail.com', '0412345678');
+
+INSERT INTO Customers (customerID, firstName, lastName, email, phoneNumber)
+VALUES (2, 'Olivia', 'Wilson', 'olivia.wilson@gmail.com', '0498765432');
+
+INSERT INTO Customers (customerID, firstName, lastName, email, phoneNumber)
+VALUES (3, 'Liam', 'Smith', 'liam.smith@gmail.com', '0401234567');
+
+INSERT INTO Customers (customerID, firstName, lastName, email, phoneNumber)
+VALUES (4, 'Sophia', 'Taylor', 'sophia.taylor@gmail.com', '0410987654');
+
+INSERT INTO Customers (customerID, firstName, lastName, email, phoneNumber)
+VALUES (5, 'William', 'Anderson', 'william.anderson@gmail.com', '0423456789');
+
+INSERT INTO Customers (customerID, firstName, lastName, email, phoneNumber)
+VALUES (6, 'Emily', 'Brown', 'emily.brown@gmail.com', '0432567890');
+
+INSERT INTO Customers (customerID, firstName, lastName, email, phoneNumber)
+VALUES (7, 'Benjamin', 'Moore', 'benjamin.moore@gmail.com', '0445678901');
+
+INSERT INTO Customers (customerID, firstName, lastName, email, phoneNumber)
+VALUES (8, 'Charlotte', 'Martin', 'charlotte.martin@gmail.com', '0456789012');
+
+INSERT INTO Customers (customerID, firstName, lastName, email, phoneNumber)
+VALUES (9, 'Mia', 'White', 'mia.white@gmail.com', '0467890123');
+
+INSERT INTO Customers (customerID, firstName, lastName, email, phoneNumber)
+VALUES (10, 'Lucas', 'Lee', 'lucas.lee@gmail.com', '0478901234');
+
+
 /****** ItemCategories ******/
 
 INSERT INTO ItemCategories (categoryID, parentCategoryID, categoryName)
@@ -161,7 +194,170 @@ INSERT INTO Stores (storeName, storeDescription, storeImage, addressID)
 VALUES ('UTR Payneham Rd', 'Convenience store and petrol station in Stepney.', 'https://img.freepik.com/premium-photo/gas-station-cars-oil-gas-industry-petrol-station_75563-29918.jpg', 10);
 
 
+/****** Staff ******/
 
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('John', 'Smith', 1, 1, 1),
+       ('Jane', 'Doe', 1, 2, 1),
+       ('Michael', 'Johnson', 1, 1, 2),
+       ('Emily', 'Davis', 1, 3, 2),
+       ('David', 'Wilson', 1, 2, 3),
+       ('Laura', 'Brown', 1, 3, 1),
+       ('Paul', 'White', 1, 1, 2),
+       ('Anna', 'Taylor', 1, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Mark', 'Anderson', 2, 1, 1),
+       ('Sophia', 'Lee', 2, 2, 1),
+       ('James', 'Miller', 2, 1, 2),
+       ('Emma', 'Clark', 2, 3, 2),
+       ('Robert', 'Lewis', 2, 2, 3),
+       ('Isabella', 'Walker', 2, 3, 1),
+       ('Thomas', 'Hall', 2, 1, 2),
+       ('Lucas', 'Allen', 2, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Henry', 'Moore', 3, 1, 1),
+       ('Olivia', 'Taylor', 3, 2, 1),
+       ('William', 'Harris', 3, 1, 2),
+       ('Sophia', 'Martin', 3, 3, 2),
+       ('Mason', 'Thompson', 3, 2, 3),
+       ('Emily', 'Garcia', 3, 3, 1),
+       ('Benjamin', 'Martinez', 3, 1, 2),
+       ('Mia', 'Robinson', 3, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Ethan', 'Clark', 4, 1, 1),
+       ('Charlotte', 'Rodriguez', 4, 2, 1),
+       ('Logan', 'Lewis', 4, 1, 2),
+       ('Amelia', 'Lee', 4, 3, 2),
+       ('Alexander', 'Walker', 4, 2, 3),
+       ('Avery', 'Hall', 4, 3, 1),
+       ('Daniel', 'Young', 4, 1, 2),
+       ('Chloe', 'Hernandez', 4, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Matthew', 'King', 5, 1, 1),
+       ('Ava', 'Scott', 5, 2, 1),
+       ('Jackson', 'Green', 5, 1, 2),
+       ('Harper', 'Adams', 5, 3, 2),
+       ('Jack', 'Baker', 5, 2, 3),
+       ('Lily', 'Nelson', 5, 3, 1),
+       ('James', 'Carter', 5, 1, 2),
+       ('Ella', 'Mitchell', 5, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Samuel', 'Perez', 6, 1, 1),
+       ('Zoe', 'Roberts', 6, 2, 1),
+       ('David', 'Turner', 6, 1, 2),
+       ('Nora', 'Phillips', 6, 3, 2),
+       ('Sebastian', 'Campbell', 6, 2, 3),
+       ('Mila', 'Parker', 6, 3, 1),
+       ('Joseph', 'Evans', 6, 1, 2),
+       ('Grace', 'Edwards', 6, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Luke', 'Collins', 7, 1, 1),
+       ('Scarlett', 'Stewart', 7, 2, 1),
+       ('Joshua', 'Sanchez', 7, 1, 2),
+       ('Penelope', 'Morris', 7, 3, 2),
+       ('Gabriel', 'Rogers', 7, 2, 3),
+       ('Victoria', 'Reed', 7, 3, 1),
+       ('Owen', 'Cook', 7, 1, 2),
+       ('Eleanor', 'Morgan', 7, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Andrew', 'Bell', 8, 1, 1),
+       ('Lucy', 'Murphy', 8, 2, 1),
+       ('Carter', 'Bailey', 8, 1, 2),
+       ('Nina', 'Rivera', 8, 3, 2),
+       ('Eli', 'Cooper', 8, 2, 3),
+       ('Hazel', 'Richardson', 8, 3, 1),
+       ('Wyatt', 'Cox', 8, 1, 2),
+       ('Aria', 'Howard', 8, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Asher', 'Ward', 9, 1, 1),
+       ('Madison', 'Torres', 9, 2, 1),
+       ('Levi', 'Peterson', 9, 1, 2),
+       ('Aubrey', 'Gray', 9, 3, 2),
+       ('Jackson', 'Ramirez', 9, 2, 3),
+       ('Brooklyn', 'James', 9, 3, 1),
+       ('Mason', 'Watson', 9, 1, 2),
+       ('Scarlett', 'Brooks', 9, 2, 3);
+
+INSERT INTO Staff (firstName, lastName, storeID, jobID, jobLevel)
+VALUES ('Ethan', 'Kelly', 10, 1, 1),
+       ('Hannah', 'Sanders', 10, 2, 1),
+       ('Jacob', 'Price', 10, 1, 2),
+       ('Addison', 'Bennett', 10, 3, 2),
+       ('Grayson', 'Wood', 10, 2, 3),
+       ('Mackenzie', 'Barnes', 10, 3, 1),
+       ('Lincoln', 'Ross', 10, 1, 2),
+       ('Harper', 'Henderson', 10, 2, 3);
+
+/****** CustomerOrders ******/
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 08:30:00', '2024-09-01 08:35:00', 1, 1);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 09:15:00', '2024-09-01 09:20:00', 2, 2);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 10:45:00', '2024-09-01 10:50:00', 3, 3);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 12:00:00', '2024-09-01 12:05:00', 4, 4);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 14:30:00', '2024-09-01 14:35:00', 5, 5);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 15:15:00', '2024-09-01 15:20:00', 6, 6);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 16:45:00', '2024-09-01 16:50:00', 7, 7);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 17:30:00', '2024-09-01 17:35:00', 8, 8);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 18:00:00', '2024-09-01 18:05:00', 9, 9);
+
+INSERT INTO CustomerOrders (orderTime, paidTime, customerID, storeID)
+VALUES ('2024-09-01 19:30:00', '2024-09-01 19:35:00', 10, 10);
+
+
+/****** ItemsInOrder ******/
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (1, 1, 20, 31.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (2, 2, 30, 52.50);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (3, 3, 25, 40.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (4, 4, 2, 7.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (5, 5, 1, 5.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (6, 6, 4, 8.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (7, 7, 3, 9.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (8, 8, 2, 5.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (9, 9, 1, 4.00);
+
+INSERT INTO ItemsInOrder (orderID, itemID, numberOf, totalItemCost)
+VALUES (10, 10, 2, 5.00);
 
 /****** ItemsInStore ******/
 
@@ -323,4 +519,4 @@ INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
 VALUES (10, 8, 3.75, 140);  
 
 INSERT INTO ItemsInStore (storeID, itemID, price, numberInStock)
-VALUES (10, 7, 4.25, 130);
+VALUES (10, 7, 4.25, 130);  

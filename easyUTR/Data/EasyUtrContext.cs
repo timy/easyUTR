@@ -75,7 +75,7 @@ namespace easyUTR.Data {
                 entity.HasKey(e => e.CustomerId).HasName("Customer_PK");
 
                 entity.Property(e => e.CustomerId)
-                    .ValueGeneratedNever()
+                    // .ValueGeneratedNever()
                     .HasColumnName("customerID");
                 entity.Property(e => e.Email)
                     .HasMaxLength(100)

@@ -5,7 +5,7 @@ namespace easyUTR.Models;
 
 public partial class Customer
 {
-    public int CustomerId { get; set; }
+    public string CustomerId { get; set; }
 
     public string FirstName { get; set; } = null!;
 

@@ -11,7 +11,7 @@ public partial class CustomerOrder
 
     public DateTime PaidTime { get; set; }
 
-    public int CustomerId { get; set; }
+    public string CustomerId { get; set; }
 
     public int StoreId { get; set; }
 
