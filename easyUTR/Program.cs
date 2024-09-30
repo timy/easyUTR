@@ -1,12 +1,19 @@
 using easyUTR.Data;
 using easyUTR.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using easyUTR.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<EasyUtrContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("EasyUtrContext") ??
     throw new InvalidOperationException("Connection string 'EasyUtrContext' not found.")));
+builder.Services.AddDbContext<EasyUtrIdentityContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("EasyUtrContext") ??
+    throw new InvalidOperationException("Connection string 'EasyUtrContext' not found.")));
+builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<EasyUtrIdentityContext>();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
@@ -30,6 +37,8 @@ app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
