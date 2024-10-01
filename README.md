@@ -4,11 +4,14 @@
 
 1. Open SQL Server Management Studio (SSMS), create a new database called `EasyUTR`.
 2. Right click the created database `EasyUTR`, choose "New Query" to open a new query window for the database.
-3. Open SQL script [doc/database/DropTables.sql](doc/database/1_CreateTables.sql). Copy the content to your SSMS window and run it to drop all existing tables.
-4. Open "Tools" -> "Nuget Package Manager" -> "Package Manager Console" (PMC), create tables that are synchronised with Models in the code:
+~~3. Open SQL script [doc/database/DropTables.sql](doc/database/1_CreateTables.sql). Copy the content to your SSMS window and run it to drop all existing tables.~~
+3. Open "Tools" -> "Nuget Package Manager" -> "Package Manager Console" (PMC), create tables that are synchronised with Models in the code:
+	- run `Drop-Database -Context EasyUtrContext -Verbose`
+	- run `Add-Migration InitialIdentityContext -Context EasyUtrIdentityContext`
 	- run `Update-Database -Context EasyUtrIdentityContext`
+	- run `Add-Migration InitialContext -Context EasyUtrContext`
 	- run `Update-Database -Context EasyUtrContext`
-5. Open SQL script [doc/database/2_PopulateTables.sql](doc/database/2_PopulateTables.sql). Copy the content to your SSMS window and run it to populate tables with sample data.
+4. Open SQL script [doc/database/2_PopulateTables.sql](doc/database/2_PopulateTables.sql). Copy the content to your SSMS window and run it to populate tables with sample data.
 
 The design of the database can be found in UML file [doc/database/database-design.uxf](doc/database/database-design.uxf), which can be viewed using [UMLet](https://www.umlet.com/).
 
