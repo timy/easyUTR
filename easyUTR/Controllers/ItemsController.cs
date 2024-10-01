@@ -19,6 +19,7 @@ using Microsoft.Extensions.Hosting;
 using Stripe.Checkout;
 using Microsoft.Extensions.Options;
 using Stripe;
+using System.Security.Claims;
 
 namespace easyUTR.Controllers
 {
@@ -357,11 +358,37 @@ namespace easyUTR.Controllers
             //return new StatusCodeResult(300);
         }
 
-
-        public IActionResult PaySuccess()
+        public async Task<IActionResult> PaySuccess()
         {
             var cartItems = HttpContext.Session.Get<List<ShoppingCartItem>>("Cart") ?? [];
-            // TODO: transaction record
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var customerOrder = new CustomerOrder
+            {
+                OrderTime = DateTime.UtcNow, // TODO
+                PaidTime = DateTime.UtcNow,
+                CustomerId = userId,
+            };
+
+            var itemsInOrder = cartItems
+                .Select(cartItem => new ItemsInOrder
+            {
+                ItemId = cartItem.Item.ItemId,
+                OrderId = customerOrder.OrderId, // TODO?
+                StoreId = cartItem.ItemStore.StoreId,
+                NumberOf = cartItem.Quantity,
+                TotalItemCost = cartItem.Quantity * cartItem.ItemStore.Price, // TODO: may apply discount
+                Order = customerOrder, // TODO?
+            }).ToList();
+
+            customerOrder.ItemsInOrders = itemsInOrder; // helps save all change, including ItemsInOrder, when saving customerOrder
+
+            _context.CustomerOrders.Add(customerOrder);
+            await _context.SaveChangesAsync();
+
+            HttpContext.Session.Set("Cart", new List<ShoppingCartItem>());
+
             return View();
         }
 
