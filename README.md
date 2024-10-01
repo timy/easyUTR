@@ -35,6 +35,10 @@ In order to protect sensitive data in the configuration file, we remove `appsett
     "SecretKey": "sk_test_YOUR_SECRET_KEY",
     "PublicKey": "pk_test_YOUR_PUBLIC_KEY"
   }
+  "AdminSettings": {
+    "Email": "admin@email.address",
+    "Password":  "Admin_Password"
+  }
 }
 ```
 
