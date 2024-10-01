@@ -20,4 +20,6 @@ public partial class Store
     public virtual ICollection<ItemsInStore> ItemsInStores { get; set; } = new List<ItemsInStore>();
 
     public virtual ICollection<Staff> Staff { get; set; } = new List<Staff>();
+
+    public virtual ICollection<ItemsInOrder> ItemsInOrders { get; set; } = new List<ItemsInOrder>();
 }

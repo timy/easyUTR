@@ -213,24 +213,35 @@ namespace easyUTR.Migrations.EasyUtr
                 {
                     b.Property<int>("ItemId")
                         .HasColumnType("int")
-                        .HasColumnName("itemID");
+                        .HasColumnName("itemID")
+                        .HasColumnOrder(1);
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int")
-                        .HasColumnName("orderID");
+                        .HasColumnName("orderID")
+                        .HasColumnOrder(2);
 
                     b.Property<int>("NumberOf")
                         .HasColumnType("int")
-                        .HasColumnName("numberOf");
+                        .HasColumnName("numberOf")
+                        .HasColumnOrder(4);
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int")
+                        .HasColumnName("storeID")
+                        .HasColumnOrder(3);
 
                     b.Property<decimal>("TotalItemCost")
                         .HasColumnType("decimal(10, 2)")
-                        .HasColumnName("totalItemCost");
+                        .HasColumnName("totalItemCost")
+                        .HasColumnOrder(5);
 
                     b.HasKey("ItemId", "OrderId")
                         .HasName("ItemsInOrder_PK");
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("StoreId");
 
                     b.ToTable("ItemsInOrder", (string)null);
                 });
@@ -438,9 +449,17 @@ namespace easyUTR.Migrations.EasyUtr
                         .IsRequired()
                         .HasConstraintName("ItemsInOrder_CustomerOrder_FK");
 
+                    b.HasOne("easyUTR.Models.Store", "Store")
+                        .WithMany("ItemsInOrders")
+                        .HasForeignKey("StoreId")
+                        .IsRequired()
+                        .HasConstraintName("ItemsInOrder_Store_FK");
+
                     b.Navigation("Item");
 
                     b.Navigation("Order");
+
+                    b.Navigation("Store");
                 });
 
             modelBuilder.Entity("easyUTR.Models.ItemsInStore", b =>
@@ -526,6 +545,8 @@ namespace easyUTR.Migrations.EasyUtr
 
             modelBuilder.Entity("easyUTR.Models.Store", b =>
                 {
+                    b.Navigation("ItemsInOrders");
+
                     b.Navigation("ItemsInStores");
 
                     b.Navigation("Staff");

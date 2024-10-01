@@ -163,12 +163,14 @@ namespace easyUTR.Data {
 
                 entity.ToTable("ItemsInOrder");
 
-                entity.Property(e => e.ItemId).HasColumnName("itemID");
-                entity.Property(e => e.OrderId).HasColumnName("orderID");
-                entity.Property(e => e.NumberOf).HasColumnName("numberOf");
+                entity.Property(e => e.ItemId).HasColumnName("itemID").HasColumnOrder(1);
+                entity.Property(e => e.OrderId).HasColumnName("orderID").HasColumnOrder(2);
+                entity.Property(e => e.StoreId).HasColumnName("storeID").HasColumnOrder(3);
+                entity.Property(e => e.NumberOf).HasColumnName("numberOf").HasColumnOrder(4);
                 entity.Property(e => e.TotalItemCost)
                     .HasColumnType("decimal(10, 2)")
-                    .HasColumnName("totalItemCost");
+                    .HasColumnName("totalItemCost")
+                    .HasColumnOrder(5);
 
                 entity.HasOne(d => d.Item).WithMany(p => p.ItemsInOrders)
                     .HasForeignKey(d => d.ItemId)
@@ -179,6 +181,11 @@ namespace easyUTR.Data {
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("ItemsInOrder_CustomerOrder_FK");
+
+                entity.HasOne(d => d.Store).WithMany(p => p.ItemsInOrders)
+                    .HasForeignKey(d => d.StoreId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("ItemsInOrder_Store_FK");
             });
 
             modelBuilder.Entity<ItemsInStore>(entity =>
