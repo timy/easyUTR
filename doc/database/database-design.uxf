@@ -276,14 +276,14 @@ m2=0..*
     <coordinates>
       <x>330</x>
       <y>462</y>
-      <w>231</w>
-      <h>330</h>
+      <w>132</w>
+      <h>143</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=0..*
 m2=1
-madeAt ^</panel_attributes>
-    <additional_attributes>190.0;280.0;10.0;280.0;10.0;10.0</additional_attributes>
+&lt; madeAt</panel_attributes>
+    <additional_attributes>100.0;110.0;10.0;110.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
