@@ -13,11 +13,8 @@ public partial class CustomerOrder
 
     public string CustomerId { get; set; }
 
-    public int StoreId { get; set; }
-
     public virtual Customer Customer { get; set; } = null!;
 
     public virtual ICollection<ItemsInOrder> ItemsInOrders { get; set; } = new List<ItemsInOrder>();
 
-    public virtual Store Store { get; set; } = null!;
 }

@@ -107,17 +107,11 @@ namespace easyUTR.Data {
                 entity.Property(e => e.PaidTime)
                     .HasColumnType("datetime")
                     .HasColumnName("paidTime");
-                entity.Property(e => e.StoreId).HasColumnName("storeID");
 
                 entity.HasOne(d => d.Customer).WithMany(p => p.CustomerOrders)
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("CustomerOrder_Customer_FK");
-
-                entity.HasOne(d => d.Store).WithMany(p => p.CustomerOrders)
-                    .HasForeignKey(d => d.StoreId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("CustomerOrder_Store_FK");
             });
 
             modelBuilder.Entity<Item>(entity =>

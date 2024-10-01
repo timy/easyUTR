@@ -133,16 +133,10 @@ namespace easyUTR.Migrations.EasyUtr
                         .HasColumnType("datetime")
                         .HasColumnName("paidTime");
 
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int")
-                        .HasColumnName("storeID");
-
                     b.HasKey("OrderId")
                         .HasName("CustomerOrder_PK");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("StoreId");
 
                     b.ToTable("CustomerOrders");
                 });
@@ -408,15 +402,7 @@ namespace easyUTR.Migrations.EasyUtr
                         .IsRequired()
                         .HasConstraintName("CustomerOrder_Customer_FK");
 
-                    b.HasOne("easyUTR.Models.Store", "Store")
-                        .WithMany("CustomerOrders")
-                        .HasForeignKey("StoreId")
-                        .IsRequired()
-                        .HasConstraintName("CustomerOrder_Store_FK");
-
                     b.Navigation("Customer");
-
-                    b.Navigation("Store");
                 });
 
             modelBuilder.Entity("easyUTR.Models.Item", b =>
@@ -540,8 +526,6 @@ namespace easyUTR.Migrations.EasyUtr
 
             modelBuilder.Entity("easyUTR.Models.Store", b =>
                 {
-                    b.Navigation("CustomerOrders");
-
                     b.Navigation("ItemsInStores");
 
                     b.Navigation("Staff");

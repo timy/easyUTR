@@ -17,8 +17,6 @@ public partial class Store
 
     public virtual Address Address { get; set; } = null!;
 
-    public virtual ICollection<CustomerOrder> CustomerOrders { get; set; } = new List<CustomerOrder>();
-
     public virtual ICollection<ItemsInStore> ItemsInStores { get; set; } = new List<ItemsInStore>();
 
     public virtual ICollection<Staff> Staff { get; set; } = new List<Staff>();
