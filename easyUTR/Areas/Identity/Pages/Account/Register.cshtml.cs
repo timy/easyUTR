@@ -148,6 +148,8 @@ namespace easyUTR.Areas.Identity.Pages.Account
                     _context.Customers.Add(customer);
                     await _context.SaveChangesAsync();
 
+                    await _userManager.AddToRoleAsync(user, "Customer"); // Assign role of "Customer"
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
