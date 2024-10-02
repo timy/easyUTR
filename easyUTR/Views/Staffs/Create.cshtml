@@ -1,0 +1,53 @@
+﻿@model easyUTR.ViewModels.Staffs.StaffCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create New Staff</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SubmitDTO.FirstName" class="control-label"></label>
+                <input asp-for="SubmitDTO.FirstName" class="form-control" />
+                <span asp-validation-for="SubmitDTO.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubmitDTO.LastName" class="control-label"></label>
+                <input asp-for="SubmitDTO.LastName" class="form-control" />
+                <span asp-validation-for="SubmitDTO.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubmitDTO.Email" class="control-label"></label>
+                <input asp-for="SubmitDTO.Email" class="form-control" />
+                <span asp-validation-for="SubmitDTO.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubmitDTO.StoreId" class="control-label"></label>
+                <select asp-for="SubmitDTO.StoreId" class="form-control" asp-items="Model.StoreList"></select>
+                <span asp-validation-for="SubmitDTO.StoreId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubmitDTO.JobId" class="control-label"></label>
+                <select asp-for="SubmitDTO.JobId" class="form-control" asp-items="Model.JobList"></select>
+                <span asp-validation-for="SubmitDTO.JobId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

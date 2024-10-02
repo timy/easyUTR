@@ -1,0 +1,66 @@
+﻿@model easyUTR.ViewModels.Staffs.StaffIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.Staffs[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.Staffs[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.Staffs[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.Staffs[0].JobLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.Staffs[0].JobName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.Staffs[0].StoreName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var staff in Model.Staffs) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => staff.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => staff.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => staff.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => staff.JobLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => staff.JobName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => staff.StoreName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@staff.StaffId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@staff.StaffId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@staff.StaffId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
