@@ -3,6 +3,10 @@
     ViewData["Title"] = $"{Model.Store.StoreName} - Details";
 }
 
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<easyUTR.Areas.Identity.Data.AppUser> SignInManager
+@inject UserManager<easyUTR.Areas.Identity.Data.AppUser> UserManager
+
 <div class="container my-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -19,9 +23,12 @@
             <h1 class="mb-3">@Model.Store.StoreName</h1>
             <p class="lead">@Model.Store.StoreDescription</p>
             <p><strong>Address:</strong> @Model.Store.StoreAddress</p>
-            <a asp-action="Edit" asp-route-id="@Model.Store.StoreId" class="btn btn-primary">
-                <i class="bi bi-pencil-square me-2"></i>Edit Store Information
-            </a>
+            @if (User.IsInRole("Manager"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Store.StoreId" class="btn btn-primary">
+                    <i class="bi bi-pencil-square me-2"></i>Edit Store Information
+                </a>
+            }
         </div>
     </div>
 
@@ -31,7 +38,7 @@
     {
         <div class="card mb-4">
             <div class="card-header bg-primary text-white">
-                <h3 class="mb-0">@groupedItems.Key</h3>
+                <h3 class="mb-0">@Model.ParentCategories[groupedItems.Key].CategoryName</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -41,7 +48,10 @@
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Number in Stock</th>
-                                <th>Actions</th>
+                                @if (User.IsInRole("Manager"))
+                                {
+                                    <th>Actions</th>
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -51,14 +61,17 @@
                                     <td>@item.Detail.ItemName</td>
                                     <td>$@item.Price.ToString("F2")</td>
                                     <td>@item.NumberInStock</td>
-                                    <td>
-                                        <a asp-action="EditStoreItem"
-                                           asp-route-storeId="@Model.Store.StoreId"
-                                           asp-route-itemId="@item.Detail.ItemId"
-                                           class="btn btn-sm btn-outline-secondary">
-                                            <i class="bi bi-pencil me-1"></i>Edit
-                                        </a>
-                                    </td>
+                                    @if (User.IsInRole("Manager"))
+                                    {
+                                        <td>
+                                            <a asp-action="EditStoreItem"
+                                            asp-route-storeId="@Model.Store.StoreId"
+                                            asp-route-itemId="@item.Detail.ItemId"
+                                            class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-pencil me-1"></i>Edit
+                                            </a>
+                                        </td>
+                                    }
                                 </tr>
                             }
                         </tbody>

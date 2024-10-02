@@ -45,7 +45,7 @@ namespace easyUTR.Controllers
             var parentCategories = await _context.ItemCategories
                 .Where(c => !c.ParentCategoryId.HasValue)
                 .OrderBy(c => c.CategoryName)
-                .ToListAsync();
+                .ToDictionaryAsync(i => i.CategoryId, i => i);
 
             // Prepare category list for dropdown
             var categories = await _context.ItemCategories

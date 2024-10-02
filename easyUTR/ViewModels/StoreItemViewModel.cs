@@ -6,7 +6,7 @@ namespace easyUTR.ViewModels
 {
     public class StoreItemViewModel
     {
-        public List<ItemCategory> ParentCategories { get; set; } = new List<ItemCategory>();
+        public Dictionary<int, ItemCategory> ParentCategories { get; set; } = new Dictionary<int, ItemCategory>();
         // public Dictionary<int, List<StoreItemDetailModel>> GroupedItems { get; set; }
         public StoreInventoryDetailModel Store { get; set; } = new StoreInventoryDetailModel();
         public string? SearchText { get; set; }
