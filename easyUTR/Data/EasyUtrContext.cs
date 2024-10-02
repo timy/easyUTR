@@ -230,6 +230,10 @@ namespace easyUTR.Data {
                 entity.HasKey(e => e.StaffId).HasName("Staff_PK");
 
                 entity.Property(e => e.StaffId).HasColumnName("staffID");
+                entity.Property(e => e.Email)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("email");
                 entity.Property(e => e.FirstName)
                     .HasMaxLength(100)
                     .IsUnicode(false)
