@@ -93,6 +93,9 @@ namespace easyUTR.Data {
                     .HasMaxLength(15)
                     .IsUnicode(false)
                     .HasColumnName("phoneNumber");
+                entity.Property(e => e.Points)
+                    .HasColumnName("points")
+                    .HasDefaultValue(0);
             });
 
             modelBuilder.Entity<CustomerOrder>(entity =>
