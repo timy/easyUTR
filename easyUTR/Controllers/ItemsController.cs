@@ -387,6 +387,15 @@ namespace easyUTR.Controllers
             _context.CustomerOrders.Add(customerOrder);
             await _context.SaveChangesAsync();
 
+            var customer = await _context.Customers.FindAsync(userId);
+            if (customer != null)
+            {
+                decimal totalCost = cartItems.Sum(cartItem => cartItem.Quantity * cartItem.ItemStore.Price);
+                customer.Points += (int)totalCost; // Algorithm for points evaluation
+                _context.Customers.Update(customer);
+                await _context.SaveChangesAsync();
+            }
+
             HttpContext.Session.Set("Cart", new List<ShoppingCartItem>());
 
             return View();
