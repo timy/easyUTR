@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using easyUTR.Areas.Identity.Data
 @using easyUTR.Data
-
+@using easyUTR.Helpers
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 @inject easyUTR.Data.EasyUtrContext Context
@@ -16,9 +16,14 @@
         {
             var customer = Context.Customers.FirstOrDefault(c => c.CustomerId == currentUserId);
             var userName = customer != null ? $"{customer.FirstName}" : string.Empty;
+            var points = customer?.Points ?? 0;
+            var tier = GamificationHelper.GetTierFromPoints(points);
+            var tierIcon = GamificationHelper.GetTierIcon(points);
+
             <li class="nav-item">
-                @* <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a> *@
-                <a asp-controller="Customers" asp-action="Details" asp-route-id="@currentUserId" class="nav-link text-dark" asp-area="" title="View my account">Hello @userName!</a>
+                <a asp-controller="Customers" asp-action="Details" asp-route-id="@currentUserId" class="nav-link text-dark" asp-area="" title="View my account">
+                    Hello @userName! @tierIcon
+                </a>
             </li>
         } else if (User.IsInRole("Manager"))
         {
