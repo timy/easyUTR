@@ -1,7 +1,7 @@
 ﻿@model easyUTR.Models.Customer
 @using easyUTR.Helpers
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "My Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var tier = GamificationHelper.GetTierFromPoints(Model.Points);
     var tierIcon = GamificationHelper.GetTierIcon(Model.Points);
@@ -15,60 +15,83 @@
     var progress = (Model.Points * 100) / nextTierPoints;
 }
 
-@{
-    ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <i class="bi bi-person-circle display-1 text-primary mb-3"></i>
+                    <h2 class="card-title">@Model.FirstName @Model.LastName</h2>
+                    <p class="card-text">@Model.Email</p>
+                    <p class="card-text">@Model.PhoneNumber</p>
+                    <a asp-action="Edit" asp-route-id="@Model?.CustomerId" class="btn btn-primary mt-3">
+                        <i class="bi bi-pencil-square me-2"></i>Edit Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Rewards Status @tierIcon</h3>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="mb-0">@tier Tier</h4>
+                        <span class="badge bg-primary rounded-pill">@Model.Points Points</span>
+                    </div>
+                    <div class="progress mb-3" style="height: 25px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: @progress%;" aria-valuenow="@Model.Points" aria-valuemin="0" aria-valuemax="@nextTierPoints">
+                            @Model.Points / @nextTierPoints points
+                        </div>
+                    </div>
+                    <p class="text-muted">@(nextTierPoints - Model.Points) points needed for next tier</p>
 
-<h1>Your Profile</h1>
-
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(Model => Model.Points)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(Model => Model.Points)
-        </dd>
-        <dt class="col-sm-2">
-            Tier
-        </dt>
-        <dd class="col-sm-10">
-            @tier @tierIcon
-        </dd>
-    </dl>
-    <div class="progress mb-3">
-        <div class="progress-bar bg-success" role="progressbar" style="width: @progress%;" aria-valuenow="@Model.Points" aria-valuemin="0" aria-valuemax="@nextTierPoints">
-            @Model.Points / @nextTierPoints points to next tier
+                    <h4 class="mt-4 mb-3">Tier Benefits</h4>
+                    <ul class="list-group">
+                        @switch (tier)
+                        {
+                            case "Gold":
+                                <li class="list-group-item">15% discount on fuel</li>
+                                <li class="list-group-item">Free car wash every week</li>
+                                <li class="list-group-item">Triple points on shop items</li>
+                                break;
+                            case "Silver":
+                                <li class="list-group-item">10% discount on fuel</li>
+                                <li class="list-group-item">Free car wash every month</li>
+                                <li class="list-group-item">Double points on shop items</li>
+                                break;
+                            case "Bronze":
+                                <li class="list-group-item">5% discount on fuel</li>
+                                <li class="list-group-item">Free coffee every 10th visit</li>
+                                break;
+                            default:
+                                <li class="list-group-item">Earn points on every purchase</li>
+                                <li class="list-group-item">Redeem points for discounts</li>
+                                break;
+                        }
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.CustomerId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+@section Styles {
+    <style>
+        .card {
+            transition: transform 0.2s;
+        }
+
+            .card:hover {
+                transform: translateY(-5px);
+            }
+
+        .progress {
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            transition: width 0.6s ease;
+        }
+    </style>
+}
