@@ -129,6 +129,12 @@
                                 </a>
                             </li>
                         }
+                        @if (User.IsInRole("Customer") || User.IsInRole("Manager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="CustomerOrders" asp-action="Index">Order History</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

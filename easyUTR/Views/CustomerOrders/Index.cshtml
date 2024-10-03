@@ -1,0 +1,54 @@
+﻿@model easyUTR.ViewModels.CustomerOrders.CustomerOrderIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Orders</h1>
+
+@if(Model.Orders.Count > 0) {
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Orders[0].OrderTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Orders[0].CustomerName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Orders[0].TotalPrice)
+                </th>
+                <th>
+                    Details
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => order.OrderTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => order.CustomerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => order.TotalPrice)
+                    </td>
+                    <td>
+                        @foreach (var item in order.ItemsInOrder)
+                        {
+                            <p>@item.ItemName &times @item.Quantity @@ @item.StoreName ($@item.TotalItemCost)</p>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+} else
+{
+    <h2>No record of orders</h2>
+}
