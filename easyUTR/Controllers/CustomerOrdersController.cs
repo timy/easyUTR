@@ -10,6 +10,7 @@ using easyUTR.Models;
 using easyUTR.ViewModels.CustomerOrders;
 using Microsoft.AspNetCore.Identity;
 using Humanizer;
+using System.Security.Claims;
 
 namespace easyUTR.Controllers
 {
@@ -25,7 +26,10 @@ namespace easyUTR.Controllers
         // GET: CustomerOrders
         public async Task<IActionResult> Index()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var query = _context.CustomerOrders
+                .Where(c => c.CustomerId == userId)
                 .Include(c => c.Customer)
                 .Join(_context.ItemsInOrders, c => c.OrderId, i => i.OrderId, (c, i) => new
                 {
