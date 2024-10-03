@@ -328,7 +328,8 @@ namespace easyUTR.Controllers
             {
                 LineItems = cartItems.Select(cartItem => new SessionLineItemOptions
                 {
-                    PriceData = new SessionLineItemPriceDataOptions {
+                    PriceData = new SessionLineItemPriceDataOptions
+                    {
                         UnitAmount = Convert.ToInt32(cartItem.ItemStore.Price * 100),
                         Currency = "aud",
                         ProductData = new SessionLineItemPriceDataProductDataOptions
@@ -373,14 +374,14 @@ namespace easyUTR.Controllers
 
             var itemsInOrder = cartItems
                 .Select(cartItem => new ItemsInOrder
-            {
-                ItemId = cartItem.Item.ItemId,
-                OrderId = customerOrder.OrderId, // TODO?
-                StoreId = cartItem.ItemStore.StoreId,
-                NumberOf = cartItem.Quantity,
-                TotalItemCost = cartItem.Quantity * cartItem.ItemStore.Price, // TODO: may apply discount
-                Order = customerOrder, // TODO?
-            }).ToList();
+                {
+                    ItemId = cartItem.Item.ItemId,
+                    OrderId = customerOrder.OrderId, // TODO?
+                    StoreId = cartItem.ItemStore.StoreId,
+                    NumberOf = cartItem.Quantity,
+                    TotalItemCost = cartItem.Quantity * cartItem.ItemStore.Price, // TODO: may apply discount
+                    Order = customerOrder, // TODO?
+                }).ToList();
 
             customerOrder.ItemsInOrders = itemsInOrder; // helps save all change, including ItemsInOrder, when saving customerOrder
 
@@ -641,15 +642,122 @@ namespace easyUTR.Controllers
 
         public async Task<IActionResult> FoodAndBeverage()
         {
+            var vm = new ItemListViewModel();
 
-            return View();
+            // Query parent category for Food & Beverages
+            var parentCategories = await _context.ItemCategories
+                .Where(c => !c.ParentCategoryId.HasValue && c.CategoryName == "Food & Beverages")
+                .OrderBy(c => c.CategoryName)
+                .ToListAsync();
+
+            // Retrieve Food & Beverages items
+            var query = _context.Items
+                .Include(i => i.Category)
+                .Include(i => i.Supplier)
+                .Where(i => i.Category.ParentCategoryId == 5);
+
+            var queryItemDetail = from item in query
+                                  select new ItemDetailModel
+                                  {
+                                      ItemId = item.ItemId,
+                                      ItemName = item.ItemName,
+                                      ItemDescription = item.ItemDescription,
+                                      ItemImage = item.ItemImage ?? string.Empty,
+                                      CategoryId = item.Category.CategoryId,
+                                      CategoryName = item.Category.CategoryName,
+                                      ParentCategoryId = item.Category.ParentCategoryId,
+                                      ParentCategoryName = item.Category.ParentCategoryId.HasValue ? (
+                                               from c in _context.ItemCategories
+                                               where c.CategoryId == item.Category.ParentCategoryId
+                                               select c.CategoryName).ToString() : null,
+                                      SupplierId = item.Supplier.SupplierId,
+                                      SupplierName = item.Supplier.SupplierName,
+                                      SupplierDescription = item.Supplier.SupplierDescription,
+                                      SupplierUrl = item.Supplier.SupplierUrl
+                                  };
+
+            var queryItemStat = from itemDetail in queryItemDetail
+                                join itemInStore in _context.ItemsInStores
+                                on itemDetail.ItemId equals itemInStore.ItemId into g
+                                select new ItemStatDetailModel
+                                {
+                                    Detail = itemDetail,
+                                    MinPrice = g.Min(i => i.Price),
+                                    MaxPrice = g.Max(i => i.Price),
+                                    StoreNumber = g.Count()
+                                };
+
+            var items = await queryItemStat.ToListAsync();
+
+            // Group items by parent category
+            var groupedItems = items
+                .GroupBy(i => i.Detail.ParentCategoryId ?? i.Detail.CategoryId)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            vm.ParentCategories = parentCategories;
+            vm.GroupedItems = groupedItems;
+
+            return View(vm);
         }
 
         public async Task<IActionResult> Fuel()
         {
+            var vm = new ItemListViewModel();
 
+            // Query parent category for Fuel
+            var parentCategories = await _context.ItemCategories
+                .Where(c => !c.ParentCategoryId.HasValue && c.CategoryName == "Fuel")
+                .OrderBy(c => c.CategoryName)
+                .ToListAsync();
 
-            return View();
+            // Retrieve Fuel items
+            var query = _context.Items
+                .Include(i => i.Category)
+                .Include(i => i.Supplier)
+                .Where(i => i.Category.ParentCategoryId == 1);
+
+            var queryItemDetail = from item in query
+                                  select new ItemDetailModel
+                                  {
+                                      ItemId = item.ItemId,
+                                      ItemName = item.ItemName,
+                                      ItemDescription = item.ItemDescription,
+                                      ItemImage = item.ItemImage ?? string.Empty,
+                                      CategoryId = item.Category.CategoryId,
+                                      CategoryName = item.Category.CategoryName,
+                                      ParentCategoryId = item.Category.ParentCategoryId,
+                                      ParentCategoryName = item.Category.ParentCategoryId.HasValue ? (
+                                               from c in _context.ItemCategories
+                                               where c.CategoryId == item.Category.ParentCategoryId
+                                               select c.CategoryName).ToString() : null,
+                                      SupplierId = item.Supplier.SupplierId,
+                                      SupplierName = item.Supplier.SupplierName,
+                                      SupplierDescription = item.Supplier.SupplierDescription,
+                                      SupplierUrl = item.Supplier.SupplierUrl
+                                  };
+
+            var queryItemStat = from itemDetail in queryItemDetail
+                                join itemInStore in _context.ItemsInStores
+                                on itemDetail.ItemId equals itemInStore.ItemId into g
+                                select new ItemStatDetailModel
+                                {
+                                    Detail = itemDetail,
+                                    MinPrice = g.Min(i => i.Price),
+                                    MaxPrice = g.Max(i => i.Price),
+                                    StoreNumber = g.Count()
+                                };
+
+            var items = await queryItemStat.ToListAsync();
+
+            // Group items by parent category
+            var groupedItems = items
+                .GroupBy(i => i.Detail.ParentCategoryId ?? i.Detail.CategoryId)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            vm.ParentCategories = parentCategories;
+            vm.GroupedItems = groupedItems;
+
+            return View(vm);
         }
     }
 }

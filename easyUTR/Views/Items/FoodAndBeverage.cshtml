@@ -1,10 +1,38 @@
 ﻿@model easyUTR.ViewModels.Items.ItemListViewModel
 @{
-    ViewData["Title"] = "Food & Beverage";
+    ViewData["Title"] = "UTR Food & Beverage Products";
 }
 
 <div class="container my-5">
-    <h1 class="text-center mb-4">Food & Beverage</h1>
+    <h1 class="text-center mb-4">UTR Food & Beverage Products</h1>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-10">
+            <form asp-controller="Items" asp-action="FoodAndBeverage" method="get" class="row g-3">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input asp-for="SearchText" class="form-control" placeholder="Search food & beverage..." title="Search for food & beverage by name" maxlength="100" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select asp-for="CategoryId" class="form-select" asp-items="Model.CategoryList">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select asp-for="SupplierId" class="form-select" asp-items="Model.SupplierList">
+                        <option value="">All Suppliers</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-filter me-2"></i>Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     @foreach (var parentCategory in Model.ParentCategories)
     {
@@ -27,10 +55,18 @@
                                     <h5 class="card-title">@item.Detail.ItemName</h5>
                                     <p class="card-text item-description">@item.Detail.ItemDescription</p>
                                     <p class="card-text"><small class="text-muted">Supplier: @item.Detail.SupplierName</small></p>
-                                   
-                                </div>
-                                <div class="card-footer bg-transparent border-top-0">
-                                    <a href="@Url.Action("Details", new { id = item.Detail.ItemId })" class="btn btn-primary w-100">View Details</a>
+                                    @if (item.StoreNumber > 0)
+                                    {
+                                        <p class="card-text fw-bold">
+                                            $@item.MinPrice - $@item.MaxPrice from @item.StoreNumber store(s).
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p class="card-text fw-bold">
+                                            Out of stock.
+                                        </p>
+                                    }
                                 </div>
                             </div>
                         </div>
