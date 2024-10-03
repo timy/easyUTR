@@ -1,6 +1,91 @@
 ﻿@{
     ViewData["Title"] = "UTR Rewards";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Here presents the details for UTR Rewards policy.</p>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">@ViewData["Title"] <i class="bi bi-trophy-fill text-warning"></i></h1>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <p class="lead text-center mb-5">
+                Welcome to UTR Rewards - your path to exclusive benefits and exciting perks! Earn points with every purchase and climb the ranks to unlock amazing rewards.
+            </p>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">🥉 Bronze Tier</h3>
+                    <p class="card-text">Earn 100 points to reach Bronze status</p>
+                    <ul class="list-unstyled">
+                        <li>5% discount on fuel</li>
+                        <li>Free coffee every 10th visit</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">🥈 Silver Tier</h3>
+                    <p class="card-text">Earn 500 points to reach Silver status</p>
+                    <ul class="list-unstyled">
+                        <li>10% discount on fuel</li>
+                        <li>Free car wash every month</li>
+                        <li>Double points on shop items</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">👑 Gold Tier</h3>
+                    <p class="card-text">Earn 1000 points to reach Gold status</p>
+                    <ul class="list-unstyled">
+                        <li>15% discount on fuel</li>
+                        <li>Free car wash every week</li>
+                        <li>Triple points on shop items</li>
+                        <li>Priority service at our stations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="text-center mb-4">How to Earn Points</h2>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Every $1 spent on fuel
+                    <span class="badge bg-primary rounded-pill">1 point</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Every $1 spent in our shops
+                    <span class="badge bg-primary rounded-pill">2 points</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Complete your first order
+                    <span class="badge bg-primary rounded-pill">50 bonus points</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Refer a friend
+                    <span class="badge bg-primary rounded-pill">100 bonus points</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg">Join UTR Rewards Now!</a>
+    </div>
+</div>
+
+@section Scripts {
+        <script>
+            // Add any JavaScript for interactivity here
+        </script>
+}
