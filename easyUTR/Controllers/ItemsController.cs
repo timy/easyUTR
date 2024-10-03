@@ -20,6 +20,8 @@ using Stripe.Checkout;
 using Microsoft.Extensions.Options;
 using Stripe;
 using System.Security.Claims;
+using Microsoft.AspNetCore.SignalR;
+using easyUTR.Hubs;
 
 namespace easyUTR.Controllers
 {
@@ -28,13 +30,15 @@ namespace easyUTR.Controllers
         private readonly EasyUtrContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
         private StripeSettings _stripeSettings;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public ItemsController(EasyUtrContext context, IWebHostEnvironment hostEnvironment, IOptions<StripeSettings> stripeSettings)
+        public ItemsController(EasyUtrContext context, IWebHostEnvironment hostEnvironment, IOptions<StripeSettings> stripeSettings, IHubContext<NotificationHub> hubContext)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
             _stripeSettings = stripeSettings.Value;
             StripeConfiguration.ApiKey = _stripeSettings.SecretKey;
+            _hubContext = hubContext;
         }
 
         public async Task<IActionResult> Index(ItemListViewModel vm)
@@ -395,6 +399,26 @@ namespace easyUTR.Controllers
                 customer.Points += (int)totalCost; // Algorithm for points evaluation
                 _context.Customers.Update(customer);
                 await _context.SaveChangesAsync();
+            }
+
+            // Notify the staff of the given role (JobId) in the given store (StoreId)
+            var storeIds = itemsInOrder.Select(i => i.StoreId).Distinct();
+            foreach (var storeId in storeIds)
+            {
+                var staff = await _context.Staff
+                    .Where(s => s.StoreId == storeId && s.JobId == 4) // 4 is JobId for Stock Manager
+                    .FirstOrDefaultAsync();
+
+                var message = new
+                {
+                    OrderId = customerOrder.OrderId,
+                    Items = itemsInOrder
+                        .Where(i => i.StoreId == storeId)
+                        .Select(i => new { i.ItemId, i.NumberOf })
+                        .ToList(),
+                    Timestamp = DateTime.UtcNow,
+                };
+                await _hubContext.Clients.User(staff.StaffId).SendAsync("ReceiveMessage", message);
             }
 
             HttpContext.Session.Set("Cart", new List<ShoppingCartItem>());
