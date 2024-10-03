@@ -1,54 +1,73 @@
 ﻿@model easyUTR.ViewModels.CustomerOrders.CustomerOrderIndexViewModel
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Orders";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Orders</h1>
+<div class="container my-5">
+    <h1 class="text-center mb-4">My Orders</h1>
 
-@if(Model.Orders.Count > 0) {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Orders[0].OrderTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Orders[0].CustomerName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(Model => Model.Orders[0].TotalPrice)
-                </th>
-                <th>
-                    Details
-                </th>
-            </tr>
-        </thead>
-        <tbody>
+    @if (Model.Orders.Count > 0)
+    {
+        <div class="row">
             @foreach (var order in Model.Orders)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => order.OrderTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => order.CustomerName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => order.TotalPrice)
-                    </td>
-                    <td>
-                        @foreach (var item in order.ItemsInOrder)
-                        {
-                            <p>@item.ItemName &times @item.Quantity @@ @item.StoreName ($@item.TotalItemCost)</p>
-                        }
-                    </td>
-                </tr>
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            <span>Order #@order.OrderId</span>
+                            <span>@order.OrderTime.ToString("MMM dd, yyyy HH:mm")</span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@order.CustomerName</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Total: $@order.TotalPrice.ToString("F2")</h6>
+                            <hr>
+                            <h6>Order Details:</h6>
+                            <ul class="list-group list-group-flush">
+                                @foreach (var item in order.ItemsInOrder)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>
+                                            @item.ItemName
+                                            <small class="text-muted">(@item.StoreName)</small>
+                                        </span>
+                                        <span>
+                                            @item.Quantity &times $@(item.TotalItemCost / item.Quantity)
+                                            <strong class="ms-2">$@item.TotalItemCost.ToString("F2")</strong>
+                                        </span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
-} else
-{
-    <h2>No record of orders</h2>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center" role="alert">
+            <h4 class="alert-heading">No Orders Yet</h4>
+            <p>You haven't placed any orders. Start shopping to see your order history here!</p>
+            <hr>
+            <a href="@Url.Action("Index", "Items")" class="btn btn-primary">Start Shopping</a>
+        </div>
+    }
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .list-group-item {
+            transition: background-color 0.2s;
+        }
+        .list-group-item:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
 }
