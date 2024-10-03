@@ -1,0 +1,61 @@
+﻿.login-container {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/gas-station-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.glassmorphism {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.card {
+    transition: all 0.3s ease-in-out;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,.2);
+    }
+
+.btn-primary {
+    background-color: #5cd85a;
+    border-color: #5cd85a;
+    color: #333333;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary:hover, .btn-primary:focus {
+        background-color: #4ab847;
+        border-color: #4ab847;
+        color: #333333;
+        box-shadow: 0 5px 15px rgba(92,216,90,.4);
+    }
+
+.text-primary {
+    color: #5cd85a !important;
+}
+
+.card-header .text-primary {
+    color: #5cd85a !important;
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
