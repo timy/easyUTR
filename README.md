@@ -69,6 +69,7 @@ Payment is made through a secure third-party payment system.
 Store Browsing
 - By selecting "Our Stores," customers can view a list of all UTR petrol stations.
 Clicking on a specific station will provide detailed information about that station, including the items it has available.
+- The map feature allows customers to use their location to view nearby petrol stations for added convenience.
 
 Order History
 - Customers can view their completed orders in the "Order History" section, allowing them to track past purchases.
