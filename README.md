@@ -84,3 +84,11 @@ Store Management
 Staff Management
 - Admins can manage staff by navigating to the Staff section, where they can add new employees by filling out their details in the Create New Staff form.
 - The admin can view a complete list of all staff members and has the ability to edit staff details when necessary.
+
+## Staff Features
+Item Management
+- UTR staff can log into the system and modify item details, ensuring that the information about each item is accurate and up to date.
+- Staff can also add new items to the item list or delete items that are no longer available.
+
+Store Management
+- Similar to items, staff members can also edit store details, add new stores to the system, or delete stores from the list as needed.
