@@ -48,7 +48,7 @@ Open [easyUTR/appsettings.json](easyUTR/appsettings.json), and **modify database
 
 ## Introduction
 UTR manages several petrol stations and convenience stores throughout Adelaide, providing fuel from different suppliers and hosting popular food outlets. This web application is designed to transform the customer experience by enabling users to conveniently order and pay for fuel and food from their vehicles, cutting down on wait times and enhancing overall convenience.
-![Home Page Screenshot](doc/images/Home Page 2024-10-04 103055.png)
+
 
 # Main Functionality
 ## Customer Features
