@@ -1,11 +1,19 @@
 ﻿@model easyUTR.ViewModels.StoreItemViewModel
-@{
-    ViewData["Title"] = $"{Model.Store.StoreName} - Details";
-}
-
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<easyUTR.Areas.Identity.Data.AppUser> SignInManager
 @inject UserManager<easyUTR.Areas.Identity.Data.AppUser> UserManager
+@inject easyUTR.Data.EasyUtrContext Context
+
+@{
+    ViewData["Title"] = $"{Model.Store.StoreName} - Details";
+    bool allowEdit = false;
+    if (User.IsInRole("Manager"))
+    {
+        var currentUserId = UserManager.GetUserId(User);
+        var staff = Context.Staff.FirstOrDefault(c => c.StaffId == currentUserId);
+        allowEdit = User.IsInRole("Manager") && staff.StoreId == Model.Store.StoreId;
+    }
+}
 
 <div class="container my-5">
     <nav aria-label="breadcrumb">
@@ -23,7 +31,7 @@
             <h1 class="mb-3">@Model.Store.StoreName</h1>
             <p class="lead">@Model.Store.StoreDescription</p>
             <p><strong>Address:</strong> @Model.Store.StoreAddress</p>
-            @if (User.IsInRole("Manager"))
+            @if (allowEdit)
             {
                 <a asp-action="Edit" asp-route-id="@Model.Store.StoreId" class="btn btn-primary">
                     <i class="bi bi-pencil-square me-2"></i>Edit Store Information
@@ -48,7 +56,7 @@
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Number in Stock</th>
-                                @if (User.IsInRole("Manager"))
+                                @if (allowEdit)
                                 {
                                     <th>Actions</th>
                                 }
@@ -61,7 +69,7 @@
                                     <td>@item.Detail.ItemName</td>
                                     <td>$@item.Price.ToString("F2")</td>
                                     <td>@item.NumberInStock</td>
-                                    @if (User.IsInRole("Manager"))
+                                    @if (allowEdit)
                                     {
                                         <td>
                                             <a asp-action="EditStoreItem"

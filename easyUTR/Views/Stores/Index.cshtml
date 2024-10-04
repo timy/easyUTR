@@ -10,7 +10,7 @@
 <div class="container my-5">
     <h1 class="mb-4">Our Stores</h1>
 
-    @if (User.IsInRole("Manager"))
+    @if (User.IsInRole("Admin"))
     {
         <div class="mb-3">
             <a asp-action="Create" class="btn btn-primary">
@@ -58,5 +58,10 @@
                 transform: translateY(-5px);
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             }
+
+        .highlight-card {
+            background-color: #ffeb3b;
+            border: 2px solid #ff9800;
+        }
     </style>
 }
