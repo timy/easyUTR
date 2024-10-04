@@ -46,9 +46,11 @@ In order to protect sensitive data in the configuration file, we remove `appsett
 
 Open [easyUTR/appsettings.json](easyUTR/appsettings.json), and **modify database connection string of `ConnectionStrings` -> `EasyUtrContext` to match the database built in your own local environment**.
 
+## Introduction
+UTR manages several petrol stations and convenience stores throughout Adelaide, providing fuel from different suppliers and hosting popular food outlets. This web application is designed to transform the customer experience by enabling users to conveniently order and pay for fuel and food from their vehicles, cutting down on wait times and enhancing overall convenience.
 
-## Main Functionality
 
+# Main Functionality
 ## Customer Features
 Registration and Login
 - Customers can log in or register from the top right of the page to access their accounts.
@@ -75,6 +77,8 @@ UTR Rewards
 - On the home page, customers can participate in the UTR Rewards program to earn points and access exclusive deals.
 - Details about the rewards program are available on the "Join UTR Rewards" page.
 
+
+
 ## Admin Features
 Store Management
 - Admins can edit all UTR petrol stations, updating the details of each station as needed.
@@ -87,8 +91,11 @@ Staff Management
 
 ## Staff Features
 Item Management
-- UTR staff can log into the system and modify item details, ensuring that the information about each item is accurate and up to date.
-- Staff can also add new items to the item list or delete items that are no longer available.
+- UTR staff can log into the system and modify item details, ensuring accurate information about each item.
+- Staff can also add new items to the item list or delete items as needed.
 
 Store Management
-- Similar to items, staff members can also edit store details, add new stores to the system, or delete stores from the list as needed.
+- Staff members can edit store details, add new stores, or delete stores from the system.
+
+Order Notifications
+- When a customer places an order, the system will automatically send an in-system notification to the stock manager of the corresponding store, informing them about the new order.
