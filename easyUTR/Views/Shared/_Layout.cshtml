@@ -112,8 +112,14 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Items" asp-action="Fuel">Fuel</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Stores" asp-action="Index">Our Stores</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Stores
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Stores" asp-action="Index">Store List</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Stores" asp-action="StoreMap">Store Map</a></li>
+                            </ul>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
@@ -185,61 +191,52 @@
         </div>
     </footer>
 
-    @if (User.IsInRole("Manager"))
-    {
-        <div class="modal fade" id="orderNotificationModal" tabindex="-1" aria-labelledby="orderNotificationModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="orderNotificationModalLabel">New Order Notification</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="orderNotificationBody">
-                        A new order has been submitted.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+           <span class="close">&times;</span>
+                     <p id="message">Test Message</p>
         </div>
-    }
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
     <script>
+
+        // Retrieve popup window and close button
+        const modal = document.getElementById("myModal");
+        const span = document.getElementsByClassName("close")[0];
+
+        function showMessage(msg) {
+            const messageContent = typeof msg === 'object' ? JSON.stringify(msg, null, 2) : msg;
+            document.getElementById("message").innerText = messageContent;
+            modal.style.display = "block"; // Show the popup
+        }
+
+        // Close the window when clicking close button
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // Close window if any part outside of the window is clicked
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+
         const connection = new signalR.HubConnectionBuilder()
             .withUrl("/notificationHub")
             .build();
 
         connection.on("ReceiveMessage", function (message) {
             console.log("New Order Notification:", message);
+            showMessage(message);
+        });
 
-        @if (User.IsInRole("Manager"))
-        {
-            <text>
-                    // Parse the message
-                        const data = JSON.parse(message);
-
-                            // Update modal content
-                            document.getElementById('orderNotificationBody').innerHTML = `
-                                <p>New order received at ${new Date(data.timestamp).toLocaleString()}</p>
-                                <p>Order details:</p>
-                                <ul>
-                                    ${data.items.map(item => `<li>${item.itemName}: ${item.quantity}</li>`).join('')}
-                                </ul>
-                            `;
-
-                            // Show the modal
-                            var modal = new bootstrap.Modal(document.getElementById('orderNotificationModal'));
-                            modal.show();
-            </text>
-        }
-                });
-
-                connection.start().catch(function (err) {
-                    return console.error(err.toString());
-                });
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
     </script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
