@@ -1,0 +1,66 @@
+﻿@model easyUTR.ViewModels.Stores.StoreMapViewModel
+
+@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <h1>Our Stores</h1>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+
+        const addresses = @Html.Raw(Json.Serialize(Model.StoreMapInfos));
+
+        // Create map
+        const map = L.map('map').setView([0, 0], 2); // Initalise the center and zoom level
+
+        // Add map layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        // Get user's location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                const userLat = position.coords.latitude;
+                const userLon = position.coords.longitude;
+
+                // Add user's location to the map
+                L.marker([userLat, userLon]).addTo(map)
+                    .bindPopup('You')
+                    .openPopup();
+
+                // Set user's location to be map center
+                map.setView([userLat, userLon], 13);
+
+                // Mark all stores on the map
+                addresses.forEach(address => {
+                    const marker = L.marker([address.latitude, address.longitude]).addTo(map)
+                        .bindPopup(`<img src="${address.storeImage}" width="50" height="50"><a href="./Details?storeId=${address.storeId}">${address.storeName}</a>`);
+                });
+
+            }, () => {
+                alert('Cannot obtain your location');
+            });
+        } else {
+            alert('Browser does not support geolocation service');
+        }
+    </script>
+</body>
+</html>

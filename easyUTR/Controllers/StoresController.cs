@@ -10,6 +10,7 @@ using easyUTR.Models;
 using easyUTR.ViewModels;
 using easyUTR.DetailModel;
 using Humanizer;
+using easyUTR.ViewModels.Stores;
 
 namespace easyUTR.Controllers
 {
@@ -27,6 +28,30 @@ namespace easyUTR.Controllers
         {
             var easyUtrContext = _context.Stores.Include(s => s.Address);
             return View(await easyUtrContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> StoreMap()
+        {
+            var query = _context.Stores
+                .Include(s => s.Address)
+                .Select(i => new StoreMapInfo
+                {
+                    StoreId = i.StoreId,
+                    StoreName = i.StoreName,
+                    StoreDescription = i.StoreDescription,
+                    StoreImage = i.StoreImage,
+                    AddressId = i.Address.AddressId,
+                    AddressLine = i.Address.AddressLine,
+                    Suburb = i.Address.Suburb,
+                    Latitude = i.Address.Latitude,
+                    Longitude = i.Address.Longitude,
+                });
+            var storeInfos = await query.ToListAsync();
+            var vm = new StoreMapViewModel
+            {
+                StoreMapInfos = storeInfos,
+            };
+            return View(vm);
         }
 
         // GET: Stores/Details/5
