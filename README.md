@@ -47,3 +47,33 @@ In order to protect sensitive data in the configuration file, we remove `appsett
 Open [easyUTR/appsettings.json](easyUTR/appsettings.json), and **modify database connection string of `ConnectionStrings` -> `EasyUtrContext` to match the database built in your own local environment**.
 
 
+## Main Functionality
+
+## Customer Features
+- Registration and Login
+Customers can log in or register from the top right of the page to access their accounts.
+
+- Browse and Shop
+On the home page, customers can navigate through a feature guide to the "Shop" page, where they can browse available items.
+
+The shop includes search and filtering options to help customers refine their search based on specific needs.
+
+Upon selecting an item, customers are directed to a detailed item page where they can choose their preferred petrol station and adjust the quantity of the item.
+
+Customers can add selected items to their shopping cart, with all selected items and quantities tracked in the cart.
+
+- Checkout and Payment
+
+Customers can proceed to the cart and complete the checkout process once they are done shopping.
+Payment is made through a secure third-party payment system.
+
+- Store Browsing
+By selecting "Our Stores," customers can view a list of all UTR petrol stations.
+Clicking on a specific station will provide detailed information about that station, including the items it has available.
+
+- Order History
+Customers can view their completed orders in the "Order History" section, allowing them to track past purchases.
+
+- UTR Rewards
+On the home page, customers can participate in the UTR Rewards program to earn points and access exclusive deals.
+Details about the rewards program are available on the "Join UTR Rewards" page.
