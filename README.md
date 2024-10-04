@@ -74,3 +74,13 @@ Order History
 UTR Rewards
 - On the home page, customers can participate in the UTR Rewards program to earn points and access exclusive deals.
 - Details about the rewards program are available on the "Join UTR Rewards" page.
+
+## Admin Features
+Store Management
+- Admins can edit all UTR petrol stations, updating the details of each station as needed.
+- In the edit page, admins can add new stations by providing detailed information about the new UTR station.
+- Admins can also delete stations from the list by simply clicking delete, removing the station from the system.
+
+Staff Management
+- Admins can manage staff by navigating to the Staff section, where they can add new employees by filling out their details in the Create New Staff form.
+- The admin can view a complete list of all staff members and has the ability to edit staff details when necessary.
