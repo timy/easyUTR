@@ -409,16 +409,19 @@ namespace easyUTR.Controllers
                     .Where(s => s.StoreId == storeId && s.JobId == 4) // 4 is JobId for Stock Manager
                     .FirstOrDefaultAsync();
 
-                var message = new
+                if (staff != null)
                 {
-                    OrderId = customerOrder.OrderId,
-                    Items = itemsInOrder
-                        .Where(i => i.StoreId == storeId)
-                        .Select(i => new { i.ItemId, i.NumberOf })
-                        .ToList(),
-                    Timestamp = DateTime.UtcNow,
-                };
-                await _hubContext.Clients.User(staff.StaffId).SendAsync("ReceiveMessage", message);
+                    var message = new
+                    {
+                        OrderId = customerOrder.OrderId,
+                        Items = itemsInOrder
+                            .Where(i => i.StoreId == storeId)
+                            .Select(i => new { i.ItemId, i.NumberOf })
+                            .ToList(),
+                        Timestamp = DateTime.UtcNow,
+                    };
+                    await _hubContext.Clients.User(staff.StaffId).SendAsync("ReceiveMessage", message);
+                }
             }
 
             HttpContext.Session.Set("Cart", new List<ShoppingCartItem>());
