@@ -194,7 +194,7 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p id="message">这是一个消息!</p>
+            <p id="message">Test Message</p>
         </div>
     </div>
 
@@ -202,23 +202,22 @@
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
     <script>
 
-        // 获取弹窗和关闭按钮
+        // Retrieve popup window and close button
         const modal = document.getElementById("myModal");
         const span = document.getElementsByClassName("close")[0];
 
-        // 模拟接收消息的函数
         function showMessage(msg) {
             const messageContent = typeof msg === 'object' ? JSON.stringify(msg, null, 2) : msg;
-            document.getElementById("message").innerText = messageContent; // 更新消息内容
-            modal.style.display = "block"; // 显示弹窗
+            document.getElementById("message").innerText = messageContent;
+            modal.style.display = "block"; // Show the popup
         }
 
-        // 当用户点击关闭按钮时，关闭弹窗
+        // Close the window when clicking close button
         span.onclick = function () {
             modal.style.display = "none";
         }
 
-        // 点击窗口外部关闭弹窗
+        // Close window if any part outside of the window is clicked
         window.onclick = function (event) {
             if (event.target === modal) {
                 modal.style.display = "none";
